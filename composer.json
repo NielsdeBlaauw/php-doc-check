@@ -10,6 +10,12 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "nikic/php-parser": "^4.2"
+        "nikic/php-parser": "^4.2",
+        "wp-cli/php-cli-tools": "^0.11.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "NdB\\PhpDocCheck\\": "src"
+        }
     }
 }
