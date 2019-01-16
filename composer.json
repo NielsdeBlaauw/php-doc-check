@@ -1,0 +1,15 @@
+{
+    "name": "niels-de-blaauw/php-doc-check",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Niels de Blaauw",
+            "email": "niels.de.blaauw@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "nikic/php-parser": "^4.2"
+    }
+}
