@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
-
-require_once('vendor/autoload.php');
+require_once(__DIR__.'/../vendor/autoload.php');
 
 $arguments = new \cli\Arguments();
 $arguments->addOption(array('directory', 'd'), array(
@@ -26,8 +25,8 @@ $arguments->addOption(array('file-extensions'), array(
 	'default'     => 'php|php5|phtml',
 	'description' => 'Regex of valid file extensions to scan'));
 $arguments->addFlag(array('help', 'h'), 'Show this help screen');
-$arguments->addFlag(array('quiet', 'q'), 'Don\' show any output');
-$arguments->addFlag(array('ignore-violations-on-exit'), 'will exit with a zero code, even if any violations are found');
+$arguments->addFlag(array('quiet', 'q'), 'Don\'t show any output');
+$arguments->addFlag(array('ignore-violations-on-exit'), 'Will exit with a zero code, even if any violations are found');
 
 $arguments->parse();
 if ($arguments['help']) {
@@ -66,9 +65,11 @@ $directory = new RecursiveDirectoryIterator($arguments['directory']);
 $files_to_analyse = new RecursiveIteratorIterator($directory);
 $files_to_analyse = new RegexIterator($files_to_analyse, '/^.+\.'.$arguments['file-extensions'].'$/i', RecursiveRegexIterator::GET_MATCH);
 
-foreach(explode(',',$arguments['exclude']) as $excludeDir){
-	$regex = '/^\.\/(?!'. preg_quote($excludeDir, '/').').+$/';
-	$files_to_analyse = new RegexIterator($files_to_analyse, $regex, RecursiveRegexIterator::GET_MATCH, RegexIterator::USE_KEY);
+if(!empty($arguments['exclude'])){
+	foreach(explode(',',$arguments['exclude']) as $excludeDir){
+		$regex = '/^\.\/(?!'. preg_quote($excludeDir, '/').').+$/';
+		$files_to_analyse = new RegexIterator($files_to_analyse, $regex, RecursiveRegexIterator::GET_MATCH, RegexIterator::USE_KEY);
+	}
 }
 
 foreach($files_to_analyse as $name => $object){

@@ -13,6 +13,9 @@
         "nikic/php-parser": "^4.2",
         "wp-cli/php-cli-tools": "^0.11.11"
     },
+    "bin": [
+        "bin/php-doc-check"
+    ],
     "autoload": {
         "psr-4": {
             "NdB\\PhpDocCheck\\": "src"
