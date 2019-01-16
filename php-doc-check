@@ -7,6 +7,9 @@ $arguments = new \cli\Arguments();
 $arguments->addOption(array('directory', 'd'), array(
 	'default'     => getcwd(),
 	'description' => 'Directory to scan for files'));
+$arguments->addOption(array('exclude', 'x'), array(
+	'default'     => '',
+	'description' => 'Directories to exclude, comma seperated'));
 $arguments->addOption(array('format', 'f'), array(
 	'default'     => 'text',
 	'description' => 'Output format: text, json'));
@@ -60,8 +63,14 @@ $parser = (new \PhpParser\ParserFactory)->create(
 $files = array();
 
 $directory = new RecursiveDirectoryIterator($arguments['directory']);
-$iterator = new RecursiveIteratorIterator($directory);
-$files_to_analyse = new RegexIterator($iterator, '/^.+\.'.$arguments['file-extensions'].'$/i', RecursiveRegexIterator::GET_MATCH);
+$files_to_analyse = new RecursiveIteratorIterator($directory);
+$files_to_analyse = new RegexIterator($files_to_analyse, '/^.+\.'.$arguments['file-extensions'].'$/i', RecursiveRegexIterator::GET_MATCH);
+
+foreach(explode(',',$arguments['exclude']) as $excludeDir){
+	$regex = '/^\.\/(?!'. preg_quote($excludeDir, '/').').+$/';
+	$files_to_analyse = new RegexIterator($files_to_analyse, $regex, RecursiveRegexIterator::GET_MATCH, RegexIterator::USE_KEY);
+}
+
 foreach($files_to_analyse as $name => $object){
 	$file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments);
 	$result = $file->analyse();
