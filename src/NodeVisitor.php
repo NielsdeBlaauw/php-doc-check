@@ -10,47 +10,13 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract{
 		$this->file =& $file;
 	}
 
+	/**
+	 * Determines if this node and it's children are of a complexity that could 
+	 * use some clarification based on Cyclomatic Complexity.
+	 */
 	public function leaveNode(\PhpParser\Node $node) {
 		if(is_a($node, "\PhpParser\Node\FunctionLike")){
-			// iterate over children, recursively
-			$cb = function ($node) use (&$cb) {
-				$ccn = 0;
-				foreach (get_object_vars($node) as $name => $member) {
-					foreach (is_array($member) ? $member : [$member] as $memberItem) {
-						if ($memberItem instanceof Node) {
-							$ccn += $cb($memberItem);
-						}
-					}
-				}
-				switch (true) {
-					case $node instanceof Stmt\If_:
-					case $node instanceof Stmt\ElseIf_:
-					case $node instanceof Stmt\For_:
-					case $node instanceof Stmt\Foreach_:
-					case $node instanceof Stmt\While_:
-					case $node instanceof Stmt\Do_:
-					case $node instanceof Node\Expr\BinaryOp\LogicalAnd:
-					case $node instanceof Node\Expr\BinaryOp\LogicalOr:
-					case $node instanceof Node\Expr\BinaryOp\LogicalXor:
-					case $node instanceof Node\Expr\BinaryOp\BooleanAnd:
-					case $node instanceof Node\Expr\BinaryOp\BooleanOr:
-					case $node instanceof Stmt\Catch_:
-					case $node instanceof Node\Expr\Ternary:
-					case $node instanceof Node\Expr\BinaryOp\Coalesce:
-						$ccn++;
-						break;
-					case $node instanceof Stmt\Case_: // include default
-						if ($node->cond !== null) { // exclude default
-							$ccn++;
-						}
-						break;
-					case $node instanceof Node\Expr\BinaryOp\Spaceship:
-						$ccn += 2;
-						break;
-				}
-				return $ccn;
-			};
-			$methodCcn = $cb($node) + 1; // each method by default is CCN 1 even if it's empty
+			$methodCcn = $this->calculate_complexity($node) + 1; // each method by default is CCN 1 even if it's empty
 			
 			$name = 'Anonynous function';
 			if(\property_exists($node, 'name')){
@@ -66,5 +32,46 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract{
 				}
 			}
 		}
-    }
+	}
+	
+	/**
+	 * Recursively calculates Cyclomatic Complexity
+	 */
+	protected function calculate_complexity($node){
+		$ccn = 0;
+		foreach (get_object_vars($node) as $name => $member) {
+			foreach (is_array($member) ? $member : [$member] as $memberItem) {
+				if ($memberItem instanceof Node) {
+					$ccn += $this->calculate_complexity($memberItem);
+				}
+			}
+		}
+		switch (true) {
+			case $node instanceof Stmt\If_:
+			case $node instanceof Stmt\ElseIf_:
+			case $node instanceof Stmt\For_:
+			case $node instanceof Stmt\Foreach_:
+			case $node instanceof Stmt\While_:
+			case $node instanceof Stmt\Do_:
+			case $node instanceof Node\Expr\BinaryOp\LogicalAnd:
+			case $node instanceof Node\Expr\BinaryOp\LogicalOr:
+			case $node instanceof Node\Expr\BinaryOp\LogicalXor:
+			case $node instanceof Node\Expr\BinaryOp\BooleanAnd:
+			case $node instanceof Node\Expr\BinaryOp\BooleanOr:
+			case $node instanceof Stmt\Catch_:
+			case $node instanceof Node\Expr\Ternary:
+			case $node instanceof Node\Expr\BinaryOp\Coalesce:
+				$ccn++;
+				break;
+			case $node instanceof Stmt\Case_: // include default
+				if ($node->cond !== null) { // exclude default
+					$ccn++;
+				}
+				break;
+			case $node instanceof Node\Expr\BinaryOp\Spaceship:
+				$ccn += 2;
+				break;
+		}
+		return $ccn;
+	}
 }

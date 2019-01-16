@@ -84,6 +84,7 @@ foreach($files_to_analyse as $name => $object){
 $outputFormatter = new $output_formats[$arguments['format']]($files);
 if(!$arguments['quiet']){
 	$outputFormatter->display();
+	echo "\n";
 }
 
 if(!empty($arguments['reportfile'])){

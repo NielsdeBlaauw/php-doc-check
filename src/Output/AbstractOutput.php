@@ -10,6 +10,10 @@ abstract class AbstractOutput{
 		echo $this->get();
 	}
 
+	/**
+	 * Determines if this scan has 'failed' and should be fixed. Or if it was
+	 * flawless. CI will fail when a non zero exit code is returned.
+	 */
 	public function getExitCode(){
 		foreach($this->files as $file){
 			if($file->has_errors || $file->has_warnings){

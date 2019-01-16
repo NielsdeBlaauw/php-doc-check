@@ -17,12 +17,18 @@ class AnalysableFile{
 		$traverser  = new \PhpParser\NodeTraverser();
 		$traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($this));
 		$traverser->traverse($statements);
+		return $this->getProgressIndicator();
+	}
+
+	/**
+	 * Gives a visual progression value, based on analysis result
+	 */
+	public function getProgressIndicator() : string{
 		if(!$this->has_warnings && !$this->has_errors ){
 			return '.';
 		}elseif(!$this->has_errors){
 			return 'W';
-		}else{
-			return 'E';
 		}
+		return 'E';
 	}
 }
