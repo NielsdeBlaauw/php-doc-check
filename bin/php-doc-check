@@ -1,6 +1,12 @@
 #!/usr/bin/env php
 <?php
-require_once(__DIR__.'/../vendor/autoload.php');
+
+foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        require $file;
+        break;
+    }
+}
 
 $arguments = new \cli\Arguments();
 $arguments->addOption(array('directory', 'd'), array(
