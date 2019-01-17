@@ -14,6 +14,12 @@ By default this script:
 You can gradually improve documenation on projects by starting with relatively
 high limits and slowly moving these limits down.
 
+## Installation
+
+For now you have to install the beta version.
+
+`composer require --dev niels-de-blaauw/php-doc-check:^0.1.0@dev`
+
 ## Usage
 
 ```
