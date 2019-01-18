@@ -59,14 +59,14 @@ This could use some explanation
 public function get_title() : string{
 	if(strlen($this->title) > 20 ){
 		if(strpos($this->title,'.') !== false && strpos($this->title,'.') < 20){
-			$title = explode('.', $this->title)[0];
-		else{
+			[$title] = explode('.', $this->title, 2);
+		}else{
 			$title = substr($this->title, 0, 17) . '...';
 		}
 	}else{
 		$title = $this->title;
 	}
-	return strtoupper($this->title);
+	return strtoupper($title);
 }
 ```
 
