@@ -86,3 +86,7 @@ A: You *should* refactor very complex functions. However, adding DocBlocks
 for complex function is often easier and safer. This tool only checks the 
 availability of this type of documentation. Other tools, like [php Mess Detector](https://github.com/phpmd/phpmd), 
 can help you limit complexity.
+
+## Issues
+
+Issues are in the GitHub tracker: https://github.com/NielsdeBlaauw/php-doc-check/issues
