@@ -45,7 +45,7 @@ This is fine without docblocks (trivial method)
 
 ```php
 public function get_title() : string{
-	return strtoupper($this->title);
+    return strtoupper($this->title);
 }
 ```
 
@@ -57,16 +57,16 @@ This could use some explanation
  * tend to be longer then we can currently show.
  */
 public function get_title() : string{
-	if(strlen($this->title) > 20 ){
-		if(strpos($this->title,'.') !== false && strpos($this->title,'.') < 20){
-			[$title] = explode('.', $this->title, 2);
-		}else{
-			$title = substr($this->title, 0, 17) . '...';
-		}
-	}else{
-		$title = $this->title;
-	}
-	return strtoupper($title);
+    if(strlen($this->title) > 20 ){
+        if(strpos($this->title,'.') !== false && strpos($this->title,'.') < 20){
+            [$title] = explode('.', $this->title, 2);
+        }else{
+            $title = substr($this->title, 0, 17) . '...';
+        }
+    }else{
+        $title = $this->title;
+    }
+    return strtoupper($title);
 }
 ```
 
