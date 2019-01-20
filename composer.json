@@ -1,5 +1,6 @@
 {
     "name": "niels-de-blaauw/php-doc-check",
+    "description": "Command line tool that identifies code that needs documentation.",
     "type": "library",
     "license": "MIT",
     "authors": [
