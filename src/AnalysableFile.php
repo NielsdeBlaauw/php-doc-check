@@ -16,7 +16,16 @@ class AnalysableFile
 
     public function analyse()
     {
-        $statements = $this->parser->parse(file_get_contents($this->file->getRealPath()));
+        try {
+            $statements = $this->parser->parse(file_get_contents($this->file->getRealPath()));
+        } catch (\PhpParser\Error $e) {
+            $this->has_errors = true;
+            $this->findings[] = new \NdB\PhpDocCheck\Findings\Error(
+                sprintf('Failed parsing: %s', $e->getRawMessage()),
+                $e->getStartLine()
+            );
+            return 'I';
+        }
         $traverser  = new \PhpParser\NodeTraverser();
         $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($this));
         $traverser->traverse($statements);
