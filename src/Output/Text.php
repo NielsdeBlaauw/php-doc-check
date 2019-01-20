@@ -12,7 +12,7 @@ class Text extends AbstractOutput
         foreach ($this->files as $file) {
             if (!empty($file->findings)) {
                 $output .= "\n";
-                $output .= sprintf("Missing documentation in %s\n", $file->file->getRealPath());
+                $output .= sprintf("File: %s\n", $file->file->getRealPath());
                 $header = array(
                     'Severity',
                     'Message',
