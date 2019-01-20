@@ -1,6 +1,8 @@
 # php-doc-check
 
-PHP Doc Check is an automated command line to determine which functions and
+[![Build Status](https://travis-ci.org/NielsdeBlaauw/php-doc-check.svg?branch=master)](https://travis-ci.org/NielsdeBlaauw/php-doc-check)
+
+PHP Doc Check is an automated command line tool to determine which functions and
 methods could use some more documentation. 
 
 [Cyclomatic Complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity) is 
