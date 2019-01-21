@@ -1,2 +1,6 @@
 composer.lock
 /vendor/
+/bin/php-doc-check.phar
+/bin/php-doc-check.phar.pubkey
+/.travis/php-doc-check-phar-private.pem
+/.travis/secrets.tar
