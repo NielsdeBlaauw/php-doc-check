@@ -22,8 +22,8 @@ script:
 - "php ./bin/php-doc-check.phar -d ./ --exclude vendor/"
 before_deploy:
   - echo $DECRYPT_KEY | gpg --passphrase-fd 0 .travis/keys.asc.gpg  
-  - gpg --batch --yes --import keys.asc
-  - echo $SIGN_KEY | gpg --passphrase-fd 0 -u 0FD194D3 --armor --detach-sig bin/php-doc-check.phar
+  - gpg --batch --yes --import .travis/keys.asc
+  - echo $SIGN_KEY | gpg --passphrase-fd 0 -u A010FF892D26859A --armor --detach-sig bin/php-doc-check.phar
 deploy:
   provider: releases
   skip_cleanup: true
