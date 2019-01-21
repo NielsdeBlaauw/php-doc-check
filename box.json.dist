@@ -9,7 +9,5 @@
             "in": "vendor"
          }
     ],
-    "stub": true,
-	"algorithm": "OPENSSL",
-    "key": ".travis/php-doc-check-phar-private.pem"
+    "stub": true
 }
