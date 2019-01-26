@@ -18,7 +18,7 @@ script:
 - vendor/bin/phpcs
 - "./bin/php-doc-check -d ./ --exclude vendor/"
 - ls .travis/
-- vendor/bin/box build
+- vendor/bin/box compile
 - "php ./bin/php-doc-check.phar -d ./ --exclude vendor/"
 before_deploy:
   - echo $DECRYPT_KEY | gpg --passphrase-fd 0 .travis/keys.asc.gpg  
