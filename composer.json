@@ -24,6 +24,7 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.4",
-        "kherge/box": "~2.0"
+        "kherge/box": "~2.0",
+        "phpmd/phpmd": "^2.6"
     }
 }
