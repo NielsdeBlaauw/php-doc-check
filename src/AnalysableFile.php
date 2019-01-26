@@ -3,8 +3,8 @@ namespace NdB\PhpDocCheck;
 
 class AnalysableFile
 {
-    public $has_errors = false;
-    public $has_warnings = false;
+    public $hasErrors = false;
+    public $hasWarnings = false;
     public $findings = array();
 
     public function __construct(\SplFileInfo $file, \PhpParser\Parser $parser, $arguments)
@@ -19,7 +19,7 @@ class AnalysableFile
         try {
             $statements = $this->parser->parse(file_get_contents($this->file->getRealPath()));
         } catch (\PhpParser\Error $e) {
-            $this->has_errors = true;
+            $this->hasErrors = true;
             $this->findings[] = new \NdB\PhpDocCheck\Findings\Error(
                 sprintf('Failed parsing: %s', $e->getRawMessage()),
                 $e->getStartLine()
@@ -37,9 +37,9 @@ class AnalysableFile
      */
     public function getProgressIndicator() : string
     {
-        if (!$this->has_warnings && !$this->has_errors) {
+        if (!$this->hasWarnings && !$this->hasErrors) {
             return '.';
-        } elseif (!$this->has_errors) {
+        } elseif (!$this->hasErrors) {
             return 'W';
         }
         return 'E';

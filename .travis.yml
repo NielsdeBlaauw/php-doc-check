@@ -16,8 +16,8 @@ install:
 script:
 - composer validate
 - vendor/bin/phpcs
+- "vendor/bin/phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor/"
 - "./bin/php-doc-check -d ./ --exclude vendor/"
-- ls .travis/
 - vendor/bin/box compile
 - "php ./bin/php-doc-check.phar -d ./ --exclude vendor/"
 before_deploy:

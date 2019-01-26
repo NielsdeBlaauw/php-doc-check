@@ -7,6 +7,23 @@ use \PhpParser\Node\Stmt;
 
 class NodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
+    const COMPLEX_NODES = array(
+        'PhpParser\Node\Stmt\If_',
+        'PhpParser\Node\Stmt\ElseIf_',
+        'PhpParser\Node\Stmt\For_',
+        'PhpParser\Node\Stmt\Foreach_',
+        'PhpParser\Node\Stmt\While_',
+        'PhpParser\Node\Stmt\Do_',
+        'PhpParser\Node\Expr\BinaryOp\LogicalAnd',
+        'PhpParser\Node\Expr\BinaryOp\LogicalOr',
+        'PhpParser\Node\Expr\BinaryOp\LogicalXor',
+        'PhpParser\Node\Expr\BinaryOp\BooleanAnd',
+        'PhpParser\Node\Expr\BinaryOp\BooleanOr',
+        'PhpParser\Node\Stmt\Catch_',
+        'PhpParser\Node\Expr\Ternary',
+        'PhpParser\Node\Expr\BinaryOp\Coalesce',
+    );
+
     public function __construct(AnalysableFile &$file)
     {
         $this->file =& $file;
@@ -27,13 +44,13 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
             }
             if (empty($node->getDocComment())) {
                 if ($methodCcn >= $this->file->arguments['complexity-error-treshold']) {
-                    $this->file->has_errors = true;
+                    $this->file->hasErrors = true;
                     $this->file->findings[] = new \NdB\PhpDocCheck\Findings\Error(
                         sprintf("%s has no documentation and a complexity of %d", $name, $methodCcn),
                         $node->getStartLine()
                     );
                 } elseif ($methodCcn >= $this->file->arguments['complexity-warning-treshold']) {
-                    $this->file->has_warnings = true;
+                    $this->file->hasWarnings = true;
                     $this->file->findings[] = new \NdB\PhpDocCheck\Findings\Warning(
                         sprintf("%s has no documentation and a complexity of %d", $name, $methodCcn),
                         $node->getStartLine()
@@ -49,30 +66,17 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
     protected function calculateComplexity($node)
     {
         $ccn = 0;
-        foreach (get_object_vars($node) as $name => $member) {
+        foreach (get_object_vars($node) as $member) {
             foreach (is_array($member) ? $member : [$member] as $memberItem) {
                 if ($memberItem instanceof Node) {
                     $ccn += $this->calculateComplexity($memberItem);
                 }
             }
         }
+        if (in_array(get_class($node), self::COMPLEX_NODES)) {
+            $ccn++;
+        }
         switch (true) {
-            case $node instanceof Stmt\If_:
-            case $node instanceof Stmt\ElseIf_:
-            case $node instanceof Stmt\For_:
-            case $node instanceof Stmt\Foreach_:
-            case $node instanceof Stmt\While_:
-            case $node instanceof Stmt\Do_:
-            case $node instanceof Node\Expr\BinaryOp\LogicalAnd:
-            case $node instanceof Node\Expr\BinaryOp\LogicalOr:
-            case $node instanceof Node\Expr\BinaryOp\LogicalXor:
-            case $node instanceof Node\Expr\BinaryOp\BooleanAnd:
-            case $node instanceof Node\Expr\BinaryOp\BooleanOr:
-            case $node instanceof Stmt\Catch_:
-            case $node instanceof Node\Expr\Ternary:
-            case $node instanceof Node\Expr\BinaryOp\Coalesce:
-                $ccn++;
-                break;
             case $node instanceof Stmt\Case_: // include default
                 if ($node->cond !== null) { // exclude default
                     $ccn++;
