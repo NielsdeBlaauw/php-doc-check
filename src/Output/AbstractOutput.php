@@ -20,7 +20,7 @@ abstract class AbstractOutput
     public function getExitCode()
     {
         foreach ($this->files as $file) {
-            if ($file->has_errors || $file->has_warnings) {
+            if ($file->hasErrors || $file->hasWarnings) {
                 return 1;
             }
         }
