@@ -2,7 +2,6 @@ language: php
 matrix:
   fast_finish: true
   include:
-  - php: '7.0'
   - php: '7.1'
   - php: '7.2'
     env:
@@ -18,7 +17,7 @@ script:
 - vendor/bin/phpcs
 - "vendor/bin/phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor/"
 - "./bin/php-doc-check -d ./ --exclude vendor/"
-- vendor/bin/box build
+- vendor/bin/box compile
 - "php ./bin/php-doc-check.phar -d ./ --exclude vendor/"
 before_deploy:
   - echo $DECRYPT_KEY | gpg --passphrase-fd 0 .travis/keys.asc.gpg  

@@ -1,13 +1,6 @@
 {
-    "chmod": "0755",
-    "main": "bin/php-doc-check",
-    "output": "bin/php-doc-check.phar",
-    "directories": ["src"],
-    "finder": [
-        {
-            "name": "*.php",
-            "in": "vendor"
-         }
-    ],
-    "stub": true
+	"banner-file": "LICENSE",
+	"compactors": [
+		"KevinGH\\Box\\Compactor\\Php"
+	]
 }
