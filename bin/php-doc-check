@@ -42,8 +42,8 @@ if ($arguments['help']) {
 }
 
 $output_formats = array(
-	'text'=>'\NdB\PhpDocCheck\Output\Text',
-	'json'=>'\NdB\PhpDocCheck\Output\Json',
+	'text'=>'\NdB\PhpDocCheck\OutputFormats\Text',
+	'json'=>'\NdB\PhpDocCheck\OutputFormats\Json',
 );
 if(!array_key_exists($arguments['format'], $output_formats)){
 	echo "Invalid output format.";
@@ -65,7 +65,7 @@ $parser = (new \PhpParser\ParserFactory)->create(
 	$lexer
 );
 
-$files = array();
+$analysisResults = array();
 
 $directory = new RecursiveDirectoryIterator($arguments['directory']);
 $files_to_analyse = new RecursiveIteratorIterator($directory);
@@ -82,12 +82,12 @@ foreach($files_to_analyse as $name => $object){
 	$file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments);
 	$result = $file->analyse();
 	if($arguments['format'] === 'text' && !$arguments['quiet']){
-		echo $result;
+		echo $result->getProgressIndicator();
 	}
-	$files[] = $file;
+	$analysisResults[] = $result;
 }
 
-$outputFormatter = new $output_formats[$arguments['format']]($files);
+$outputFormatter = new $output_formats[$arguments['format']]($analysisResults);
 if(!$arguments['quiet']){
 	$outputFormatter->display();
 	echo "\n";

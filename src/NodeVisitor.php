@@ -7,6 +7,8 @@ use \PhpParser\Node\Stmt;
 
 class NodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
+    public $analysisResult;
+
     const COMPLEX_NODES = array(
         'PhpParser\Node\Stmt\If_',
         'PhpParser\Node\Stmt\ElseIf_',
@@ -24,9 +26,10 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
         'PhpParser\Node\Expr\BinaryOp\Coalesce',
     );
 
-    public function __construct(AnalysableFile &$file)
+    public function __construct(AnalysisResult &$analysisResult, \cli\Arguments $arguments)
     {
-        $this->file =& $file;
+        $this->analysisResult =& $analysisResult;
+        $this->arguments = $arguments;
     }
 
     /**
@@ -43,17 +46,19 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
                 $name = $node->name;
             }
             if (empty($node->getDocComment())) {
-                if ($methodCcn >= $this->file->arguments['complexity-error-treshold']) {
-                    $this->file->hasErrors = true;
-                    $this->file->findings[] = new \NdB\PhpDocCheck\Findings\Error(
-                        sprintf("%s has no documentation and a complexity of %d", $name, $methodCcn),
-                        $node->getStartLine()
+                if ($methodCcn >= $this->arguments['complexity-error-treshold']) {
+                    $this->analysisResult->addFinding(
+                        new \NdB\PhpDocCheck\Findings\Error(
+                            sprintf("%s has no documentation and a complexity of %d", $name, $methodCcn),
+                            $node->getStartLine()
+                        )
                     );
-                } elseif ($methodCcn >= $this->file->arguments['complexity-warning-treshold']) {
-                    $this->file->hasWarnings = true;
-                    $this->file->findings[] = new \NdB\PhpDocCheck\Findings\Warning(
-                        sprintf("%s has no documentation and a complexity of %d", $name, $methodCcn),
-                        $node->getStartLine()
+                } elseif ($methodCcn >= $this->arguments['complexity-warning-treshold']) {
+                    $this->analysisResult->addFinding(
+                        new \NdB\PhpDocCheck\Findings\Warning(
+                            sprintf("%s has no documentation and a complexity of %d", $name, $methodCcn),
+                            $node->getStartLine()
+                        )
                     );
                 }
             }

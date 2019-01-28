@@ -1,11 +1,13 @@
 <?php
-namespace NdB\PhpDocCheck\Output;
+namespace NdB\PhpDocCheck\OutputFormats;
 
-abstract class AbstractOutput
+abstract class OutputFormat
 {
-    public function __construct(array $files)
+    public $analysisResults;
+
+    public function __construct(array $analysisResults)
     {
-        $this->files = $files;
+        $this->analysisResults = $analysisResults;
     }
 
     public function display()
@@ -19,8 +21,8 @@ abstract class AbstractOutput
      */
     public function getExitCode()
     {
-        foreach ($this->files as $file) {
-            if ($file->hasErrors || $file->hasWarnings) {
+        foreach ($this->analysisResults as $analysisResult) {
+            if ($analysisResult->hasErrors || $analysisResult->hasWarnings) {
                 return 1;
             }
         }

@@ -1,7 +1,7 @@
 <?php
 namespace NdB\PhpDocCheck\Findings;
 
-class Error extends Warning
+final class Error extends Finding
 {
     public function getType():string
     {
