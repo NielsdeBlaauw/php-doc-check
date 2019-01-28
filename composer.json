@@ -17,6 +17,15 @@
     "bin": [
         "bin/php-doc-check"
     ],
+    "scripts":{
+        "test": [
+            "composer validate",
+            "vendor/bin/phpcs",
+            "vendor/bin/phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor/",
+            "vendor/bin/phpstan analyse src --level 7",
+            "./bin/php-doc-check -d ./ --exclude vendor/"
+        ]
+    },
     "autoload": {
         "psr-4": {
             "NdB\\PhpDocCheck\\": "src"

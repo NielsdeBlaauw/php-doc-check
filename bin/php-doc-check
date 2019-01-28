@@ -35,9 +35,14 @@ $arguments->addFlag(array('quiet', 'q'), 'Don\'t show any output');
 $arguments->addFlag(array('ignore-violations-on-exit'), 'Will exit with a zero code, even if any violations are found');
 
 $arguments->parse();
+
+$outputChannel = new \NdB\PhpDocCheck\Output\Channels\Regular(new \SplFileObject('php://stdout'));
+if($arguments['quiet']){
+    $outputChannel = new \NdB\PhpDocCheck\Output\Channels\Quiet(new \SplFileObject('php://stdout'));
+}
+
 if ($arguments['help']) {
-    echo $arguments->getHelpScreen();
-    echo "\n\n";
+    $outputChannel->out($arguments->getHelpScreen() . "\n\n");
     exit;
 }
 
@@ -45,9 +50,9 @@ $output_formats = array(
     'text'=>'\NdB\PhpDocCheck\Output\Formats\Text',
     'json'=>'\NdB\PhpDocCheck\Output\Formats\Json',
 );
+
 if (!array_key_exists($arguments['format'], $output_formats)) {
-    echo "Invalid output format.";
-    echo "\n";
+    $outputChannel->out("Invalid output format.\n");
     exit;
 }
 
@@ -90,17 +95,13 @@ if (!empty($arguments['exclude'])) {
 foreach ($files_to_analyse as $name => $object) {
     $file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments);
     $result = $file->analyse();
-    if ($arguments['format'] === 'text' && !$arguments['quiet']) {
-        echo $result->getProgressIndicator();
-    }
+    $outputChannel->progress($result->getProgressIndicator());
     $analysisResults[] = $result;
 }
+$outputChannel->progress("\n");
 
 $outputFormatter = new $output_formats[$arguments['format']]($analysisResults);
-if (!$arguments['quiet']) {
-    $outputFormatter->display();
-    echo "\n";
-}
+$outputChannel->out($outputFormatter->get());
 
 if (!empty($arguments['reportfile'])) {
     $outputFile = new SplFileInfo(getcwd(). '/' . $arguments['reportfile']);
@@ -108,9 +109,7 @@ if (!empty($arguments['reportfile'])) {
     if ($outputFile->isWritable() || $directory->isWritable()) {
         file_put_contents($outputFile->getPathName(), $outputFormatter->get());
     } else {
-        if (!$arguments['quiet']) {
-            echo sprintf('Output %s file can not be created', $outputFile->getPathName());
-        }
+        $outputChannel->out(sprintf('Output %s file can not be created', $outputFile->getPathName()));
     }
 }
 

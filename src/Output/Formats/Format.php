@@ -15,11 +15,6 @@ abstract class Format
 
     abstract public function get() : string;
 
-    public function display()
-    {
-        echo $this->get();
-    }
-
     /**
      * Determines if this scan has 'failed' and should be fixed. Or if it was
      * flawless. CI will fail when a non zero exit code is returned.
