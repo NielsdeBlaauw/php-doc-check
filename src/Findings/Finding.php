@@ -4,6 +4,9 @@ namespace NdB\PhpDocCheck\Findings;
 
 abstract class Finding
 {
+    public $line;
+    public $message;
+
     public function __construct(string $message, int $line)
     {
         $this->message = $message;

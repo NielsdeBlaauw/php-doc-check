@@ -8,6 +8,7 @@ use \PhpParser\Node\Stmt;
 class NodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     public $analysisResult;
+    protected $arguments;
 
     const COMPLEX_NODES = array(
         'PhpParser\Node\Stmt\If_',

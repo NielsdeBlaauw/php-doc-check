@@ -5,10 +5,15 @@ abstract class OutputFormat
 {
     public $analysisResults;
 
+    /**
+     * @param \NdB\PhpDocCheck\AnalysisResult[] $analysisResults
+     */
     public function __construct(array $analysisResults)
     {
         $this->analysisResults = $analysisResults;
     }
+
+    abstract public function get() : string;
 
     public function display()
     {

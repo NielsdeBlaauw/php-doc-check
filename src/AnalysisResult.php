@@ -7,9 +7,15 @@ class AnalysisResult
     public $hasWarnings = false;
     public $findings = array();
     public $sourceFile;
+
     public function __construct(AnalysableFile $sourceFile)
     {
         $this->sourceFile = $sourceFile;
+    }
+
+    public function getSourceFile():AnalysableFile
+    {
+        return $this->sourceFile;
     }
 
     public function addFinding(Findings\Finding $finding)

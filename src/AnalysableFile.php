@@ -3,6 +3,10 @@ namespace NdB\PhpDocCheck;
 
 class AnalysableFile
 {
+    public $file;
+    protected $parser;
+    protected $arguments;
+    
     public function __construct(\SplFileInfo $file, \PhpParser\Parser $parser, \cli\Arguments $arguments)
     {
         $this->file = $file;
