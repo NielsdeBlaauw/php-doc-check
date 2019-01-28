@@ -42,8 +42,8 @@ if ($arguments['help']) {
 }
 
 $output_formats = array(
-    'text'=>'\NdB\PhpDocCheck\OutputFormats\Text',
-    'json'=>'\NdB\PhpDocCheck\OutputFormats\Json',
+    'text'=>'\NdB\PhpDocCheck\Output\Formats\Text',
+    'json'=>'\NdB\PhpDocCheck\Output\Formats\Json',
 );
 if (!array_key_exists($arguments['format'], $output_formats)) {
     echo "Invalid output format.";

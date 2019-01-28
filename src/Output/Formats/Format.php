@@ -1,7 +1,7 @@
 <?php
-namespace NdB\PhpDocCheck\OutputFormats;
+namespace NdB\PhpDocCheck\Output\Formats;
 
-abstract class OutputFormat
+abstract class Format
 {
     public $analysisResults;
 

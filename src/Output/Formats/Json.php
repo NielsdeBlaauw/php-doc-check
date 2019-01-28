@@ -1,7 +1,7 @@
 <?php
-namespace NdB\PhpDocCheck\OutputFormats;
+namespace NdB\PhpDocCheck\Output\Formats;
 
-final class Json extends OutputFormat
+final class Json extends Format
 {
     public function get() : string
     {

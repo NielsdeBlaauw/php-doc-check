@@ -1,7 +1,7 @@
 <?php
-namespace NdB\PhpDocCheck\OutputFormats;
+namespace NdB\PhpDocCheck\Output\Formats;
 
-final class Text extends OutputFormat
+final class Text extends Format
 {
     /**
      * Outputs findings for each file analysed in a table form
