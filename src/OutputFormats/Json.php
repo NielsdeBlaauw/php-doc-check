@@ -6,14 +6,12 @@ final class Json extends OutputFormat
     public function get() : string
     {
         $output = array();
-        foreach ($this->analysisResults as $analysisResult) {
-            if (!empty($analysisResult->findings) && !empty($analysisResult->sourceFile)) {
-                $output[] = array(
-                    'file'=>$analysisResult->sourceFile->file->getRealPath(),
-                    'findings'=>$analysisResult->findings,
-                );
-            }
-        }
+        $output = array_filter($this->analysisResults, array($this, 'removeEmpty'));
         return (string) json_encode($output);
+    }
+
+    public function removeEmpty(\NdB\PhpDocCheck\AnalysisResult $analysisResult) : bool
+    {
+        return !empty($analysisResult->findings);
     }
 }

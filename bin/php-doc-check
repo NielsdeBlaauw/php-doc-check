@@ -10,102 +10,111 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
 
 $arguments = new \cli\Arguments();
 $arguments->addOption(array('directory', 'd'), array(
-	'default'     => getcwd(),
-	'description' => 'Directory to scan for files'));
+    'default'     => getcwd(),
+    'description' => 'Directory to scan for files'));
 $arguments->addOption(array('exclude', 'x'), array(
-	'default'     => '',
-	'description' => 'Directories to exclude, comma seperated'));
+    'default'     => '',
+    'description' => 'Directories to exclude, comma seperated'));
 $arguments->addOption(array('format', 'f'), array(
-	'default'     => 'text',
-	'description' => 'Output format: text, json'));
+    'default'     => 'text',
+    'description' => 'Output format: text, json'));
 $arguments->addOption(array('reportfile'), array(
-	'default'     => '',
-	'description' => 'Send report output to a file'));
+    'default'     => '',
+    'description' => 'Send report output to a file'));
 $arguments->addOption(array('complexity-warning-treshold', 'w'), array(
-	'default'     => '4',
-	'description' => 'Cyclomatic complexity score which is the lower bound for a warning'));
+    'default'     => '4',
+    'description' => 'Cyclomatic complexity score which is the lower bound for a warning'));
 $arguments->addOption(array('complexity-error-treshold', 'e'), array(
-	'default'     => '6',
-	'description' => 'Cyclomatic complexity score which is the lower bound for an error'));
+    'default'     => '6',
+    'description' => 'Cyclomatic complexity score which is the lower bound for an error'));
 $arguments->addOption(array('file-extensions'), array(
-	'default'     => 'php|php5|phtml',
-	'description' => 'Regex of valid file extensions to scan'));
+    'default'     => 'php|php5|phtml',
+    'description' => 'Regex of valid file extensions to scan'));
 $arguments->addFlag(array('help', 'h'), 'Show this help screen');
 $arguments->addFlag(array('quiet', 'q'), 'Don\'t show any output');
 $arguments->addFlag(array('ignore-violations-on-exit'), 'Will exit with a zero code, even if any violations are found');
 
 $arguments->parse();
 if ($arguments['help']) {
-	echo $arguments->getHelpScreen();
-	echo "\n\n";
-	exit;
+    echo $arguments->getHelpScreen();
+    echo "\n\n";
+    exit;
 }
 
 $output_formats = array(
-	'text'=>'\NdB\PhpDocCheck\OutputFormats\Text',
-	'json'=>'\NdB\PhpDocCheck\OutputFormats\Json',
+    'text'=>'\NdB\PhpDocCheck\OutputFormats\Text',
+    'json'=>'\NdB\PhpDocCheck\OutputFormats\Json',
 );
-if(!array_key_exists($arguments['format'], $output_formats)){
-	echo "Invalid output format.";
-	echo "\n";
-	exit;
+if (!array_key_exists($arguments['format'], $output_formats)) {
+    echo "Invalid output format.";
+    echo "\n";
+    exit;
 }
 
 $lexer = new \PhpParser\Lexer\Emulative(
-	array(
-		'usedAttributes' => array(
-			'startLine', 
-			'comments',
-		),
-	)
+    array(
+        'usedAttributes' => array(
+            'startLine',
+            'comments',
+        ),
+    )
 );
 
 $parser = (new \PhpParser\ParserFactory)->create(
-	\PhpParser\ParserFactory::PREFER_PHP7,
-	$lexer
+    \PhpParser\ParserFactory::PREFER_PHP7,
+    $lexer
 );
 
 $analysisResults = array();
 
 $directory = new RecursiveDirectoryIterator($arguments['directory']);
 $files_to_analyse = new RecursiveIteratorIterator($directory);
-$files_to_analyse = new RegexIterator($files_to_analyse, '/^.+\.'.$arguments['file-extensions'].'$/i', RecursiveRegexIterator::GET_MATCH);
+$files_to_analyse = new RegexIterator(
+    $files_to_analyse,
+    '/^.+\.'.$arguments['file-extensions'].'$/i',
+    RecursiveRegexIterator::GET_MATCH
+);
 
-if(!empty($arguments['exclude'])){
-	foreach(explode(',',$arguments['exclude']) as $excludeDir){
-		$regex = '/^\.\/(?!'. preg_quote($excludeDir, '/').').+$/';
-		$files_to_analyse = new RegexIterator($files_to_analyse, $regex, RecursiveRegexIterator::GET_MATCH, RegexIterator::USE_KEY);
-	}
+if (!empty($arguments['exclude'])) {
+    foreach (explode(',', $arguments['exclude']) as $excludeDir) {
+        $regex = '/^\.\/(?!'. preg_quote($excludeDir, '/').').+$/';
+        $files_to_analyse = new RegexIterator(
+            $files_to_analyse,
+            $regex,
+            RecursiveRegexIterator::GET_MATCH,
+            RegexIterator::USE_KEY
+        );
+    }
 }
 
-foreach($files_to_analyse as $name => $object){
-	$file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments);
-	$result = $file->analyse();
-	if($arguments['format'] === 'text' && !$arguments['quiet']){
-		echo $result->getProgressIndicator();
-	}
-	$analysisResults[] = $result;
+foreach ($files_to_analyse as $name => $object) {
+    $file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments);
+    $result = $file->analyse();
+    if ($arguments['format'] === 'text' && !$arguments['quiet']) {
+        echo $result->getProgressIndicator();
+    }
+    $analysisResults[] = $result;
 }
 
 $outputFormatter = new $output_formats[$arguments['format']]($analysisResults);
-if(!$arguments['quiet']){
-	$outputFormatter->display();
-	echo "\n";
+if (!$arguments['quiet']) {
+    $outputFormatter->display();
+    echo "\n";
 }
 
-if(!empty($arguments['reportfile'])){
-	$outputFile = new SplFileInfo(getcwd(). '/' . $arguments['reportfile']);
-	$directory = new DirectoryIterator($outputFile->getPath());
-	if($outputFile->isWritable() || $directory->isWritable()){
-		file_put_contents($outputFile->getPathName(), $outputFormatter->get());
-	}else{
-		if(!$arguments['quiet']){
-			echo sprintf('Output %s file can not be created', $outputFile->getPathName());
-		}
-	}
+if (!empty($arguments['reportfile'])) {
+    $outputFile = new SplFileInfo(getcwd(). '/' . $arguments['reportfile']);
+    $directory = new DirectoryIterator($outputFile->getPath());
+    if ($outputFile->isWritable() || $directory->isWritable()) {
+        file_put_contents($outputFile->getPathName(), $outputFormatter->get());
+    } else {
+        if (!$arguments['quiet']) {
+            echo sprintf('Output %s file can not be created', $outputFile->getPathName());
+        }
+    }
 }
 
-if($arguments['ignore-violations-on-exit']){
-	exit(0);
+if ($arguments['ignore-violations-on-exit']) {
+    exit(0);
 }
 exit($outputFormatter->getExitCode());

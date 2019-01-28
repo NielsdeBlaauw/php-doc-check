@@ -1,7 +1,7 @@
 <?php
 namespace NdB\PhpDocCheck;
 
-class AnalysisResult
+class AnalysisResult implements \JsonSerializable
 {
     public $hasErrors = false;
     public $hasWarnings = false;
@@ -39,5 +39,13 @@ class AnalysisResult
             return 'W';
         }
         return 'E';
+    }
+
+    public function jsonSerialize() : array
+    {
+        return array(
+            'file'=>$this->sourceFile->file->getRealPath(),
+            'findings'=>$this->findings,
+        );
     }
 }
