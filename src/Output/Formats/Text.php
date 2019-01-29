@@ -3,37 +3,41 @@ namespace NdB\PhpDocCheck\Output\Formats;
 
 final class Text extends Format
 {
-    /**
-     * Outputs findings for each file analysed in a table form
-     * @param \NdB\PhpDocCheck\AnalysisResult[] $results
-     */
     public function get(array $results) : string
     {
+        $results = array_filter($results, array($this, 'removeEmpty'));
         $output = '';
         foreach ($results as $analysisResult) {
-            if (!empty($analysisResult->findings) && !empty($analysisResult->sourceFile)) {
-                $output .= "\n";
-                $output .= sprintf("File: %s\n", $analysisResult->sourceFile->file->getRealPath());
-                $header = array(
-                    'Severity',
-                    'Message',
-                    'Line'
-                );
-                $rows = array();
-                foreach ($analysisResult->findings as $finding) {
-                    $rows[] = array(
-                        $finding->getType(),
-                        $finding->getMessage(),
-                        $finding->getLine()
-                    );
-                }
-                $lines = (new \cli\Table($header, $rows))->getDisplayLines();
-                foreach ($lines as $line) {
-                    $output .= $line. "\n";
-                }
-            }
+            $output .= $this->getFileOutput($analysisResult);
         }
         return $output;
+    }
+
+    protected function getFileOutput(\NdB\PhpDocCheck\AnalysisResult $analysisResult)
+    {
+        $output = '';
+        $output .= "\n";
+        $output .= sprintf("File: %s\n", $analysisResult->sourceFile->file->getRealPath());
+        $header = array(
+            'Severity',
+            'Message',
+            'Line'
+        );
+        $rows = array_map(array($this, 'formatRow'), $analysisResult->findings);
+        $lines = (new \cli\Table($header, $rows))->getDisplayLines();
+        foreach ($lines as $line) {
+            $output .= $line. "\n";
+        }
+        return $output;
+    }
+
+    protected function formatRow(\NdB\PhpDocCheck\Findings\Finding $finding) : array
+    {
+        return array(
+            $finding->getType(),
+            $finding->getMessage(),
+            $finding->getLine()
+        );
     }
 
     public function result(array $results)

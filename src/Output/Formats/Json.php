@@ -13,11 +13,6 @@ final class Json extends Format
         return (string) json_encode($output);
     }
 
-    public function removeEmpty(\NdB\PhpDocCheck\AnalysisResult $analysisResult) : bool
-    {
-        return !empty($analysisResult->findings);
-    }
-
     public function result(array $results)
     {
         foreach ($this->channels as $channel) {

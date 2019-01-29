@@ -15,6 +15,11 @@ abstract class Format
 
     abstract public function get(array $results) : string;
 
+    public function removeEmpty(\NdB\PhpDocCheck\AnalysisResult $analysisResult) : bool
+    {
+        return !empty($analysisResult->findings);
+    }
+
     /**
      * Determines if this scan has 'failed' and should be fixed. Or if it was
      * flawless. CI will fail when a non zero exit code is returned.

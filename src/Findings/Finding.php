@@ -22,4 +22,6 @@ abstract class Finding
     {
         return $this->message;
     }
+
+    abstract public function getType():string;
 }
