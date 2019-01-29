@@ -4,3 +4,4 @@ composer.lock
 /bin/php-doc-check.phar.asc
 /.travis/php-doc-check-phar-private.pem
 /.travis/secrets.tar
+.vscode/
