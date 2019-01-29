@@ -9,6 +9,5 @@ abstract class Channel
     {
         $this->stream = $stream;
     }
-    abstract public function progress(string $progressIndicator);
     abstract public function out(string $output);
 }

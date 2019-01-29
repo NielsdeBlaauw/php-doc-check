@@ -36,14 +36,16 @@ $arguments->addFlag(array('ignore-violations-on-exit'), 'Will exit with a zero c
 
 $arguments->parse();
 
-$outputChannel = new \NdB\PhpDocCheck\Output\Channels\Regular(new \SplFileObject('php://stdout'));
+$outputChannels = array();
+$cliChannel = new \NdB\PhpDocCheck\Output\Channels\Regular(new \SplFileObject('php://stdout'));
 if($arguments['quiet']){
-    $outputChannel = new \NdB\PhpDocCheck\Output\Channels\Quiet(new \SplFileObject('php://stdout'));
+    $cliChannel = new \NdB\PhpDocCheck\Output\Channels\Quiet(new \SplFileObject('php://stdout'));
 }
+$outputChannels[] = $cliChannel;
 
-if ($arguments['help']) {
-    $outputChannel->out($arguments->getHelpScreen() . "\n\n");
-    exit;
+if (!empty($arguments['reportfile'])) {
+    $outputFile = new SplFileObject(getcwd(). '/' . $arguments['reportfile'], 'w');
+    $outputChannels[] = new \NdB\PhpDocCheck\Output\Channels\Regular($outputFile);
 }
 
 $output_formats = array(
@@ -52,7 +54,12 @@ $output_formats = array(
 );
 
 if (!array_key_exists($arguments['format'], $output_formats)) {
-    $outputChannel->out("Invalid output format.\n");
+    $arguments['format'] = 'text';
+}
+$outputFormatter = new $output_formats[$arguments['format']]($outputChannels);
+
+if ($arguments['help']) {
+    $outputFormatter->out($arguments->getHelpScreen() . "\n\n");
     exit;
 }
 
@@ -95,25 +102,14 @@ if (!empty($arguments['exclude'])) {
 foreach ($files_to_analyse as $name => $object) {
     $file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments);
     $result = $file->analyse();
-    $outputChannel->progress($result->getProgressIndicator());
+    $outputFormatter->progress($result->getProgressIndicator());
     $analysisResults[] = $result;
 }
-$outputChannel->progress("\n");
+$outputFormatter->progress("\n");
 
-$outputFormatter = new $output_formats[$arguments['format']]($analysisResults);
-$outputChannel->out($outputFormatter->get());
-
-if (!empty($arguments['reportfile'])) {
-    $outputFile = new SplFileInfo(getcwd(). '/' . $arguments['reportfile']);
-    $directory = new DirectoryIterator($outputFile->getPath());
-    if ($outputFile->isWritable() || $directory->isWritable()) {
-        file_put_contents($outputFile->getPathName(), $outputFormatter->get());
-    } else {
-        $outputChannel->out(sprintf('Output %s file can not be created', $outputFile->getPathName()));
-    }
-}
+$outputFormatter->result($analysisResults);
 
 if ($arguments['ignore-violations-on-exit']) {
     exit(0);
 }
-exit($outputFormatter->getExitCode());
+exit($outputFormatter->getExitCode($analysisResults));
