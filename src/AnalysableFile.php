@@ -7,7 +7,7 @@ class AnalysableFile
     protected $parser;
     protected $arguments;
     
-    public function __construct(\SplFileInfo $file, \PhpParser\Parser $parser, \cli\Arguments $arguments)
+    public function __construct(\SplFileInfo $file, \PhpParser\Parser $parser, \GetOpt\GetOpt $arguments)
     {
         $this->file = $file;
         $this->parser = $parser;

@@ -8,33 +8,8 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
     }
 }
 
-$arguments = new \cli\Arguments();
-$arguments->addOption(array('directory', 'd'), array(
-    'default'     => getcwd(),
-    'description' => 'Directory to scan for files'));
-$arguments->addOption(array('exclude', 'x'), array(
-    'default'     => '',
-    'description' => 'Directories to exclude, comma seperated'));
-$arguments->addOption(array('format', 'f'), array(
-    'default'     => 'text',
-    'description' => 'Output format: text, json'));
-$arguments->addOption(array('reportfile'), array(
-    'default'     => '',
-    'description' => 'Send report output to a file'));
-$arguments->addOption(array('complexity-warning-treshold', 'w'), array(
-    'default'     => '4',
-    'description' => 'Cyclomatic complexity score which is the lower bound for a warning'));
-$arguments->addOption(array('complexity-error-treshold', 'e'), array(
-    'default'     => '6',
-    'description' => 'Cyclomatic complexity score which is the lower bound for an error'));
-$arguments->addOption(array('file-extensions'), array(
-    'default'     => 'php|php5|phtml',
-    'description' => 'Regex of valid file extensions to scan'));
-$arguments->addFlag(array('help', 'h'), 'Show this help screen');
-$arguments->addFlag(array('quiet', 'q'), 'Don\'t show any output');
-$arguments->addFlag(array('ignore-violations-on-exit'), 'Will exit with a zero code, even if any violations are found');
-
-$arguments->parse();
+$argumentsProvider = new NdB\PhpDocCheck\ApplicationArgumentsProvider();
+$arguments = $argumentsProvider->getArguments();
 
 $outputChannels = array();
 $cliChannel = new \NdB\PhpDocCheck\Output\Channels\Regular(new \SplFileObject('php://stdout'));
@@ -43,8 +18,8 @@ if($arguments['quiet']){
 }
 $outputChannels[] = $cliChannel;
 
-if (!empty($arguments['reportfile'])) {
-    $outputFile = new SplFileObject(getcwd(). '/' . $arguments['reportfile'], 'w');
+if (!empty($arguments['reportFile'])) {
+    $outputFile = new SplFileObject(getcwd(). '/' . $arguments['reportFile'], 'w');
     $outputChannels[] = new \NdB\PhpDocCheck\Output\Channels\Regular($outputFile);
 }
 
@@ -59,7 +34,7 @@ if (!array_key_exists($arguments['format'], $output_formats)) {
 $outputFormatter = new $output_formats[$arguments['format']]($outputChannels);
 
 if ($arguments['help']) {
-    $outputFormatter->out($arguments->getHelpScreen() . "\n\n");
+    $outputFormatter->out($arguments->getHelpText());
     exit;
 }
 
@@ -78,28 +53,8 @@ $parser = (new \PhpParser\ParserFactory)->create(
 );
 
 $analysisResults = array();
-
-$directory = new RecursiveDirectoryIterator($arguments['directory']);
-$files_to_analyse = new RecursiveIteratorIterator($directory);
-$files_to_analyse = new RegexIterator(
-    $files_to_analyse,
-    '/^.+\.'.$arguments['file-extensions'].'$/i',
-    RecursiveRegexIterator::GET_MATCH
-);
-
-if (!empty($arguments['exclude'])) {
-    foreach (explode(',', $arguments['exclude']) as $excludeDir) {
-        $regex = '/^\.\/(?!'. preg_quote($excludeDir, '/').').+$/';
-        $files_to_analyse = new RegexIterator(
-            $files_to_analyse,
-            $regex,
-            RecursiveRegexIterator::GET_MATCH,
-            RegexIterator::USE_KEY
-        );
-    }
-}
-
-foreach ($files_to_analyse as $name => $object) {
+$fileFinder = new \NdB\PhpDocCheck\FileFinder();
+foreach ($fileFinder->getFiles($arguments) as $name => $object) {
     $file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments);
     $result = $file->analyse();
     $outputFormatter->progress($result->getProgressIndicator());
