@@ -27,7 +27,7 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
         'PhpParser\Node\Expr\BinaryOp\Coalesce',
     );
 
-    public function __construct(AnalysisResult &$analysisResult, \cli\Arguments $arguments)
+    public function __construct(AnalysisResult &$analysisResult, \GetOpt\GetOpt $arguments)
     {
         $this->analysisResult =& $analysisResult;
         $this->arguments = $arguments;

@@ -12,7 +12,8 @@
     "minimum-stability": "stable",
     "require": {
         "nikic/php-parser": "^4.2",
-        "wp-cli/php-cli-tools": "^0.11.11"
+        "wp-cli/php-cli-tools": "^0.11.11",
+        "ulrichsg/getopt-php": "^3.2"
     },
     "bin": [
         "bin/php-doc-check"
@@ -23,7 +24,7 @@
             "vendor/bin/phpcs",
             "vendor/bin/phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor/",
             "vendor/bin/phpstan analyse src --level 7",
-            "./bin/php-doc-check -d ./ --exclude vendor/"
+            "./bin/php-doc-check --exclude vendor/ ./"
         ]
     },
     "autoload": {
