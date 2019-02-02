@@ -35,14 +35,14 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
                 $name = $node->name;
             }
             if (empty($node->getDocComment())) {
-                if ($metricValue >= $this->arguments['complexity-error-treshold']) {
+                if ($metricValue >= $this->arguments->getOption('complexity-error-treshold')) {
                     $this->analysisResult->addFinding(
                         new \NdB\PhpDocCheck\Findings\Error(
                             sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
                             $node->getStartLine()
                         )
                     );
-                } elseif ($metricValue >= $this->arguments['complexity-warning-treshold']) {
+                } elseif ($metricValue >= $this->arguments->getOption('complexity-warning-treshold')) {
                     $this->analysisResult->addFinding(
                         new \NdB\PhpDocCheck\Findings\Warning(
                             sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
