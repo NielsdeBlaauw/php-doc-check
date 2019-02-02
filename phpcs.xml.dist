@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="php-doc-check standard" namespace="NdB">
     <file>./src</file>
+    <file>./tests</file>
     <file>./bin/php-doc-check</file>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <rule ref="PSR2"/>

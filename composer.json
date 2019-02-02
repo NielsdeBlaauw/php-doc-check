@@ -24,6 +24,7 @@
             "vendor/bin/phpcs",
             "vendor/bin/phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor/",
             "vendor/bin/phpstan analyse src --level 7",
+            "vendor/bin/phpunit",
             "./bin/php-doc-check --exclude vendor/ ./"
         ]
     },
