@@ -40,6 +40,7 @@ final class TextTest extends \PHPUnit\Framework\TestCase
         $results->hasErrors = true;
         $this->assertEquals(1, $formatter->getExitCode(array($results)));
     }
+    
     public function testErrorCodeIndicatesNoProblem()
     {
         $channel = $this->createMock(\NdB\PhpDocCheck\Output\Channels\Channel::class);

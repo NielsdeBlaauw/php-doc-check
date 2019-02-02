@@ -14,6 +14,7 @@ install:
 - composer install --prefer-dist --no-interaction --no-progress --no-suggest
 script:
 - composer validate
+- vendor/bin/phpunit
 - vendor/bin/phpcs
 - "vendor/bin/phpmd ./ text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor/"
 - "vendor/bin/phpstan analyse src --level 7"

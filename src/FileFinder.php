@@ -16,7 +16,7 @@ class FileFinder
             $filesToAnalyse->append($directoryIterator);
         }
 
-        foreach ($arguments['file-extension'] as $extension) {
+        foreach ($arguments->getOption('file-extension') as $extension) {
             $filesToAnalyse = new \RegexIterator(
                 $filesToAnalyse,
                 '/^.+\.'.$extension.'$/i',
@@ -24,7 +24,7 @@ class FileFinder
             );
         }
 
-        foreach ($arguments['exclude'] as $exclude) {
+        foreach ($arguments->getOption('exclude') as $exclude) {
             $regex = '/^((?!'. preg_quote($exclude, '/').').)*$/i';
                 $filesToAnalyse = new \RegexIterator(
                     $filesToAnalyse,
