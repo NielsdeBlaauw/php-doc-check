@@ -5,20 +5,20 @@ namespace NdB\PhpDocCheck\Metrics;
 final class CyclomaticComplexity implements Metric
 {
     protected $complexNodes = array(
-        'PhpParser\Node\Stmt\If_',
-        'PhpParser\Node\Stmt\ElseIf_',
-        'PhpParser\Node\Stmt\For_',
-        'PhpParser\Node\Stmt\Foreach_',
-        'PhpParser\Node\Stmt\While_',
-        'PhpParser\Node\Stmt\Do_',
-        'PhpParser\Node\Expr\BinaryOp\LogicalAnd',
-        'PhpParser\Node\Expr\BinaryOp\LogicalOr',
-        'PhpParser\Node\Expr\BinaryOp\LogicalXor',
-        'PhpParser\Node\Expr\BinaryOp\BooleanAnd',
-        'PhpParser\Node\Expr\BinaryOp\BooleanOr',
-        'PhpParser\Node\Stmt\Catch_',
-        'PhpParser\Node\Expr\Ternary',
-        'PhpParser\Node\Expr\BinaryOp\Coalesce',
+        'Stmt_If',
+        'Stmt_ElseIf',
+        'Stmt_For',
+        'Stmt_Foreach',
+        'Stmt_While',
+        'Stmt_Do',
+        'Stmt_Catch',
+        'Expr_BinaryOp_LogicalAnd',
+        'Expr_BinaryOp_LogicalOr',
+        'Expr_BinaryOp_LogicalXor',
+        'Expr_BinaryOp_BooleanAnd',
+        'Expr_BinaryOp_BooleanOr',
+        'Expr_BinaryOp_Coalesce',
+        'Expr_Ternary',
     );
     
     /**
@@ -34,11 +34,11 @@ final class CyclomaticComplexity implements Metric
                 }
             }
         }
-        if (in_array(get_class($node), $this->complexNodes)) {
+        if (in_array($node->getType(), $this->complexNodes)) {
             $ccn++;
         }
         switch (true) {
-            case $node instanceof \PhpParser\Node\Stmt\Case_: // include default
+            case $node instanceof \PhpParser\Node\Stmt\Case_:
                 if ($node->cond !== null) { // exclude default
                     $ccn++;
                 }
