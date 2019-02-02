@@ -29,7 +29,8 @@ class AnalysableFile
             return $analysisResult;
         }
         $traverser  = new \PhpParser\NodeTraverser();
-        $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($analysisResult, $this->arguments));
+        $metric = new Metrics\CyclomaticComplexity();
+        $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($analysisResult, $this->arguments, $metric));
         $traverser->traverse($statements);
         return $analysisResult;
     }

@@ -3,7 +3,7 @@ namespace NdB\PhpDocCheck\Output\Formats;
 
 final class Text extends Format
 {
-    public function get(array $results) : string
+    protected function get(array $results) : string
     {
         $results = array_filter($results, array($this, 'removeEmpty'));
         $output = '';

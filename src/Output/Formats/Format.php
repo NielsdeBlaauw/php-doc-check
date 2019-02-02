@@ -13,9 +13,12 @@ abstract class Format
         $this->channels = $channels;
     }
 
-    abstract public function get(array $results) : string;
+    /**
+     * @param \NdB\PhpDocCheck\AnalysisResult[] $results
+     */
+    abstract protected function get(array $results) : string;
 
-    public function removeEmpty(\NdB\PhpDocCheck\AnalysisResult $analysisResult) : bool
+    protected function removeEmpty(\NdB\PhpDocCheck\AnalysisResult $analysisResult) : bool
     {
         return !empty($analysisResult->findings);
     }

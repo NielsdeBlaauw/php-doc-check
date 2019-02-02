@@ -43,14 +43,14 @@ class ApplicationArgumentsProvider
     /**
      * @SuppressWarnings(PHPMD.ExitExpression)
      */
-    public function getArguments():\GetOpt\GetOpt
+    public function getArguments($arguments = null):\GetOpt\GetOpt
     {
         try {
-            $this->getOpt->process();
+            $this->getOpt->process($arguments);
         } catch (\GetOpt\ArgumentException $e) {
             echo $e->getMessage() . "\n";
             echo $this->getOpt->getHelpText();
-            exit; //
+            exit;
         }
         return $this->getOpt;
     }
