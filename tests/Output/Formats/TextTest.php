@@ -31,4 +31,22 @@ final class TextTest extends \PHPUnit\Framework\TestCase
         $results->sourceFile->file->method('getRealPath')->willReturn('/tmp/test');
         $formatter->result(array($results));
     }
+
+    public function testErrorCodeIndicatesFailures()
+    {
+        $channel = $this->createMock(\NdB\PhpDocCheck\Output\Channels\Channel::class);
+        $formatter = new Text(array($channel));
+        $results = $this->createMock(\NdB\PhpDocCheck\AnalysisResult::class);
+        $results->hasErrors = true;
+        $this->assertEquals(1, $formatter->getExitCode(array($results)));
+    }
+    public function testErrorCodeIndicatesNoProblem()
+    {
+        $channel = $this->createMock(\NdB\PhpDocCheck\Output\Channels\Channel::class);
+        $formatter = new Text(array($channel));
+        $results = $this->createMock(\NdB\PhpDocCheck\AnalysisResult::class);
+        $results->hasErrors = false;
+        $results->hasWarnings = false;
+        $this->assertEquals(0, $formatter->getExitCode(array($results)));
+    }
 }
