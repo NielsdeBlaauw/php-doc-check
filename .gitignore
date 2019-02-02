@@ -1,4 +1,5 @@
 composer.lock
+/artifacts/
 /vendor/
 /bin/php-doc-check.phar
 /bin/php-doc-check.phar.asc
