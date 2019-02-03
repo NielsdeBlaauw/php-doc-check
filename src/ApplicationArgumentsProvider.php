@@ -11,11 +11,14 @@ class ApplicationArgumentsProvider
             \GetOpt\Option::create('x', 'exclude', \GetOpt\GetOpt::MULTIPLE_ARGUMENT)
                 ->setDescription('Directories to exclude, without slash'),
             \GetOpt\Option::create('f', 'format', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
-                ->setDescription('Output format: text, json')
+                ->setDescription('Output format [text, json]')
                 ->setDefaultValue('text'),
             \GetOpt\Option::create('o', 'reportFile', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription('Send report output to a file')
                 ->setDefaultValue(''),
+            \GetOpt\Option::create('m', 'metric', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
+                ->setDescription('Metric to use for determining complexity [cogntive, cyclomatic]')
+                ->setDefaultValue('cognitive'),
             \GetOpt\Option::create('w', 'complexity-warning-treshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription('Cyclomatic complexity score which is the lower bound for a warning')
                 ->setDefaultValue(4)->setValidation('is_numeric'),

@@ -38,8 +38,10 @@ Usage: vendor/bin/php-doc-check [options] <directory> [<directory>...]
 
 Options:
   -x, --exclude <arg>                      Directories to exclude, without slash
-  -f, --format <arg>                       Output format: text, json
+  -f, --format <arg>                       Output format [text, json]
   -o, --reportFile <arg>                   Send report output to a file
+  -m, --metric <arg>                       Metric to use for determining
+                                           complexity [cogntive, cyclomatic]
   -w, --complexity-warning-treshold <arg>  Cyclomatic complexity score which is
                                            the lower bound for a warning
   -e, --complexity-error-treshold <arg>    Cyclomatic complexity score which is

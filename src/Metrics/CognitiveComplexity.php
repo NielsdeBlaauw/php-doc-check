@@ -2,7 +2,7 @@
 
 namespace NdB\PhpDocCheck\Metrics;
 
-final class CyclomaticComplexity implements Metric
+final class CognitiveComplexity implements Metric
 {
     protected $complexNodes = array(
         'Stmt_If',
@@ -10,8 +10,12 @@ final class CyclomaticComplexity implements Metric
         'Stmt_For',
         'Stmt_Foreach',
         'Stmt_While',
+        'Stmt_Switch',
         'Stmt_Do',
         'Stmt_Catch',
+        'Stmt_Goto',
+        'Stmt_Break',
+        'Stmt_Continue',
         'Expr_BinaryOp_LogicalAnd',
         'Expr_BinaryOp_LogicalOr',
         'Expr_BinaryOp_LogicalXor',
@@ -23,35 +27,38 @@ final class CyclomaticComplexity implements Metric
     
     public function getValue(\PhpParser\Node $node):int
     {
-        return $this->calculateNodeValue($node) + 1;
+        return $this->calculateNodeValue($node, 0);
     }
 
     /**
-     * Recursively calculates Cyclomatic Complexity
+     * Calculates cognitive complexity
      */
-    public function calculateNodeValue(\PhpParser\Node $node) : int
+    protected function calculateNodeValue(\PhpParser\Node $node, $depth = 0) : int
     {
         $ccn = 0;
+        if ($this->isComplexNode($node)) {
+            $ccn++;
+            $depth++;
+        }
         foreach (get_object_vars($node) as $member) {
             foreach (is_array($member) ? $member : [$member] as $memberItem) {
                 if ($memberItem instanceof \PhpParser\Node) {
-                    $ccn += $this->calculateNodeValue($memberItem);
+                    $ccn+=$this->calculateNodeValue($memberItem, $depth);
                 }
             }
         }
-        if (in_array($node->getType(), $this->complexNodes)) {
-            $ccn++;
-        }
-        switch (true) {
-            case $node instanceof \PhpParser\Node\Stmt\Case_:
-                if ($node->cond !== null) { // exclude default
-                    $ccn++;
-                }
-                break;
-            case $node instanceof \PhpParser\Node\Expr\BinaryOp\Spaceship:
-                $ccn += 2;
-                break;
+        // Add depth complexity when a neste item is a complex one.
+        if ($ccn >= 1 && $depth >= 2) {
+            $ccn += 1;
         }
         return $ccn;
+    }
+    
+    protected function isComplexNode(\PhpParser\Node $node): bool
+    {
+        if (in_array($node->getType(), $this->complexNodes)) {
+            return true;
+        }
+        return false;
     }
 }

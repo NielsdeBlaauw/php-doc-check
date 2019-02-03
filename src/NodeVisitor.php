@@ -28,7 +28,7 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
     public function leaveNode(\PhpParser\Node $node)
     {
         if (is_a($node, "\PhpParser\Node\FunctionLike")) {
-            $metricValue = $this->metric->getValue($node) + 1; // each method by default is CCN 1 even if it's empty
+            $metricValue = $this->metric->getValue($node);
             
             $name = 'Anonynous function';
             if (\property_exists($node, 'name')) {
