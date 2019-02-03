@@ -1,6 +1,8 @@
 # php-doc-check
 
+[![Latest Stable Version](https://poser.pugx.org/niels-de-blaauw/php-doc-check/v/stable)](https://packagist.org/packages/niels-de-blaauw/php-doc-check)
 [![Build Status](https://travis-ci.org/NielsdeBlaauw/php-doc-check.svg?branch=master)](https://travis-ci.org/NielsdeBlaauw/php-doc-check)
+[![License](https://poser.pugx.org/niels-de-blaauw/php-doc-check/license)](https://packagist.org/packages/niels-de-blaauw/php-doc-check)
 
 PHP Doc Check is an automated command line tool to determine which functions and
 methods could use some more documentation. 
@@ -18,9 +20,15 @@ high limits and slowly moving these limits down.
 
 ## Installation
 
+### Composer
+
 For now you have to install the beta version.
 
 `composer require --dev niels-de-blaauw/php-doc-check:^0.1.0@dev`
+
+### Phive
+
+`phive install php-doc-check`
 
 ## Usage
 
