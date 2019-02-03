@@ -6,6 +6,10 @@ class AnalysableFile
     public $file;
     protected $parser;
     protected $arguments;
+    protected $metrics = array(
+        'cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
+        'cyclomatic' => '\NdB\PhpDocCheck\Metrics\CyclomaticComplexity'
+    );
     
     public function __construct(\SplFileInfo $file, \PhpParser\Parser $parser, \GetOpt\GetOpt $arguments)
     {
@@ -29,7 +33,11 @@ class AnalysableFile
             return $analysisResult;
         }
         $traverser  = new \PhpParser\NodeTraverser();
-        $metric = new Metrics\CyclomaticComplexity();
+        $metricSlug = 'cognitive';
+        if (array_key_exists($this->arguments->getOption('metric'), $this->metrics)) {
+            $metricSlug = $this->arguments->getOption('metric');
+        }
+        $metric = new $this->metrics[$metricSlug];
         $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($analysisResult, $this->arguments, $metric));
         $traverser->traverse($statements);
         return $analysisResult;
