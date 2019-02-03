@@ -7,9 +7,6 @@
 PHP Doc Check is an automated command line tool to determine which functions and
 methods could use some more documentation. 
 
-[Cyclomatic Complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity) is 
-used to find complex functions.
-
 By default this script:
 
 - Emits a warning if there is no docblock for non trivial functions (score > 4)
@@ -17,6 +14,14 @@ By default this script:
 
 You can gradually improve documenation on projects by starting with relatively
 high limits and slowly moving these limits down.
+
+## Metrics
+
+- [Cognitive Complexity](https://www.sonarsource.com/docs/CognitiveComplexity.pdf) `<default>` is 
+used to find functions that are complex to read and understand.
+- [Cyclomatic Complexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity) is 
+used to find complex functions with a more traditionl algorithm.
+
 
 ## Installation
 
