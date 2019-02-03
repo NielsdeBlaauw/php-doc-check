@@ -24,7 +24,7 @@ high limits and slowly moving these limits down.
 
 For now you have to install the beta version.
 
-`composer require --dev niels-de-blaauw/php-doc-check:^0.1.0@dev`
+`composer require --dev niels-de-blaauw/php-doc-check:^0.2.0@dev`
 
 ### Phive
 
