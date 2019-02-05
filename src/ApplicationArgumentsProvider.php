@@ -17,7 +17,9 @@ class ApplicationArgumentsProvider
                 ->setDescription('Send report output to a file')
                 ->setDefaultValue(''),
             \GetOpt\Option::create('m', 'metric', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
-                ->setDescription('Metric to use for determining complexity [cognitive, cyclomatic] [default: cognitive]')
+                ->setDescription(
+                    'Metric to use for determining complexity [cognitive, cyclomatic] [default: cognitive]'
+                )
                 ->setDefaultValue('cognitive'),
             \GetOpt\Option::create('w', 'complexity-warning-threshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription('Cyclomatic complexity score which is the lower bound for a warning [default: 4]')
