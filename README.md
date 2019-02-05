@@ -46,10 +46,10 @@ Options:
   -f, --format <arg>                       Output format [text, json]
   -o, --reportFile <arg>                   Send report output to a file
   -m, --metric <arg>                       Metric to use for determining
-                                           complexity [cogntive, cyclomatic]
-  -w, --complexity-warning-treshold <arg>  Cyclomatic complexity score which is
+                                           complexity [cognitive, cyclomatic]
+  -w, --complexity-warning-threshold <arg>  Cyclomatic complexity score which is
                                            the lower bound for a warning
-  -e, --complexity-error-treshold <arg>    Cyclomatic complexity score which is
+  -e, --complexity-error-threshold <arg>    Cyclomatic complexity score which is
                                            the lower bound for an error
   -$, --file-extension <arg>               Valid file extensions to scan
   -i, --ignore-violations-on-exit          Will exit with a zero code, even if
@@ -96,7 +96,7 @@ public function get_title() : string{
 Q: Why dont you want if there is no comment at all, regardless of complexity?
 
 A: You can set this software to warn for all functions that are undocumented by
-setting `--complexity-error-treshold 1`. However, if you want to force
+setting `--complexity-error-threshold 1`. However, if you want to force
 documentation, you probably want to look into a tool like [php CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 in combination with documentation standards.
 

@@ -17,12 +17,12 @@ class ApplicationArgumentsProvider
                 ->setDescription('Send report output to a file')
                 ->setDefaultValue(''),
             \GetOpt\Option::create('m', 'metric', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
-                ->setDescription('Metric to use for determining complexity [cogntive, cyclomatic]')
+                ->setDescription('Metric to use for determining complexity [cognitive, cyclomatic]')
                 ->setDefaultValue('cognitive'),
-            \GetOpt\Option::create('w', 'complexity-warning-treshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
+            \GetOpt\Option::create('w', 'complexity-warning-threshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription('Cyclomatic complexity score which is the lower bound for a warning')
                 ->setDefaultValue(4)->setValidation('is_numeric'),
-            \GetOpt\Option::create('e', 'complexity-error-treshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
+            \GetOpt\Option::create('e', 'complexity-error-threshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription('Cyclomatic complexity score which is the lower bound for an error')
                 ->setDefaultValue(6)->setValidation('is_numeric'),
             \GetOpt\Option::create('$', 'file-extension', \GetOpt\GetOpt::MULTIPLE_ARGUMENT)
