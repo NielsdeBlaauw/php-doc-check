@@ -30,19 +30,19 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
         if (is_a($node, "\PhpParser\Node\FunctionLike")) {
             $metricValue = $this->metric->getValue($node);
             
-            $name = 'Anonynous function';
+            $name = 'Anonymous function';
             if (\property_exists($node, 'name')) {
                 $name = $node->name;
             }
             if (empty($node->getDocComment())) {
-                if ($metricValue >= $this->arguments->getOption('complexity-error-treshold')) {
+                if ($metricValue >= $this->arguments->getOption('complexity-error-threshold')) {
                     $this->analysisResult->addFinding(
                         new \NdB\PhpDocCheck\Findings\Error(
                             sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
                             $node->getStartLine()
                         )
                     );
-                } elseif ($metricValue >= $this->arguments->getOption('complexity-warning-treshold')) {
+                } elseif ($metricValue >= $this->arguments->getOption('complexity-warning-threshold')) {
                     $this->analysisResult->addFinding(
                         new \NdB\PhpDocCheck\Findings\Warning(
                             sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
