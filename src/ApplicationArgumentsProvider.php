@@ -11,22 +11,22 @@ class ApplicationArgumentsProvider
             \GetOpt\Option::create('x', 'exclude', \GetOpt\GetOpt::MULTIPLE_ARGUMENT)
                 ->setDescription('Directories to exclude, without slash'),
             \GetOpt\Option::create('f', 'format', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
-                ->setDescription('Output format [text, json]')
+                ->setDescription('Output format [text, json] [default: text]')
                 ->setDefaultValue('text'),
             \GetOpt\Option::create('o', 'reportFile', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription('Send report output to a file')
                 ->setDefaultValue(''),
             \GetOpt\Option::create('m', 'metric', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
-                ->setDescription('Metric to use for determining complexity [cognitive, cyclomatic]')
+                ->setDescription('Metric to use for determining complexity [cognitive, cyclomatic] [default: cognitive]')
                 ->setDefaultValue('cognitive'),
             \GetOpt\Option::create('w', 'complexity-warning-threshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
-                ->setDescription('Cyclomatic complexity score which is the lower bound for a warning')
+                ->setDescription('Cyclomatic complexity score which is the lower bound for a warning [default: 4]')
                 ->setDefaultValue(4)->setValidation('is_numeric'),
             \GetOpt\Option::create('e', 'complexity-error-threshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
-                ->setDescription('Cyclomatic complexity score which is the lower bound for an error')
+                ->setDescription('Cyclomatic complexity score which is the lower bound for an error [default: 6]')
                 ->setDefaultValue(6)->setValidation('is_numeric'),
             \GetOpt\Option::create('$', 'file-extension', \GetOpt\GetOpt::MULTIPLE_ARGUMENT)
-                ->setDescription('Valid file extensions to scan')
+                ->setDescription('Valid file extensions to scan [default: php]')
                 ->setDefaultValue('php'),
             \GetOpt\Option::create('i', 'ignore-violations-on-exit', \GetOpt\GetOpt::NO_ARGUMENT)
                 ->setDescription('Will exit with a zero code, even if any violations are found'),

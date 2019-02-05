@@ -42,20 +42,26 @@ $vendor/bin/php-doc-check -?
 Usage: vendor/bin/php-doc-check [options] <directory> [<directory>...]
 
 Options:
-  -x, --exclude <arg>                      Directories to exclude, without slash
-  -f, --format <arg>                       Output format [text, json]
-  -o, --reportFile <arg>                   Send report output to a file
-  -m, --metric <arg>                       Metric to use for determining
-                                           complexity [cognitive, cyclomatic]
-  -w, --complexity-warning-threshold <arg>  Cyclomatic complexity score which is
-                                           the lower bound for a warning
-  -e, --complexity-error-threshold <arg>    Cyclomatic complexity score which is
-                                           the lower bound for an error
-  -$, --file-extension <arg>               Valid file extensions to scan
-  -i, --ignore-violations-on-exit          Will exit with a zero code, even if
-                                           any violations are found
-  -?, --help                               Show this help and quit
-  -q, --quiet                              Don't show any output
+  -x, --exclude <arg>                       Directories to exclude, without
+                                            slash
+  -f, --format <arg>                        Output format [text, json]
+                                            [default: text]
+  -o, --reportFile <arg>                    Send report output to a file
+  -m, --metric <arg>                        Metric to use for determining
+                                            complexity [cognitive, cyclomatic]
+                                            [default: cognitive]
+  -w, --complexity-warning-threshold <arg>  Cyclomatic complexity score which
+                                            is the lower bound for a warning
+                                            [default: 4]
+  -e, --complexity-error-threshold <arg>    Cyclomatic complexity score which
+                                            is the lower bound for an error
+                                            [default: 6]
+  -$, --file-extension <arg>                Valid file extensions to scan
+                                            [default: php]
+  -i, --ignore-violations-on-exit           Will exit with a zero code, even if
+                                            any violations are found
+  -?, --help                                Show this help and quit
+  -q, --quiet                               Don't show any output
 ```
 
 Example first use: `vendor/bin/php-doc-check --exclude vendor ./`
