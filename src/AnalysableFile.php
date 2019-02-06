@@ -1,11 +1,11 @@
 <?php
 namespace NdB\PhpDocCheck;
 
-class AnalysableFile
+class AnalysableFile implements \JsonSerializable
 {
     public $file;
+    public $arguments;
     protected $parser;
-    protected $arguments;
     protected $metrics = array(
         'cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
         'cyclomatic' => '\NdB\PhpDocCheck\Metrics\CyclomaticComplexity'
@@ -27,7 +27,9 @@ class AnalysableFile
             $analysisResult->addFinding(
                 new \NdB\PhpDocCheck\Findings\Error(
                     sprintf('Failed parsing: %s', $e->getRawMessage()),
-                    $e->getStartLine()
+                    new InvalidFileNode,
+                    $this,
+                    new \NdB\PhpDocCheck\Metrics\InvalidFile()
                 )
             );
             return $analysisResult;
@@ -38,8 +40,15 @@ class AnalysableFile
             $metricSlug = $this->arguments->getOption('metric');
         }
         $metric = new $this->metrics[$metricSlug];
-        $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($analysisResult, $this->arguments, $metric));
+        $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($analysisResult, $this, $metric));
         $traverser->traverse($statements);
         return $analysisResult;
+    }
+
+    public function jsonSerialize() : array
+    {
+        return array(
+            'file'=>$this->file->getRealPath(),
+        );
     }
 }

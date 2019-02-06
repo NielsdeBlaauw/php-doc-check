@@ -12,9 +12,11 @@ final class NodeVisitorTest extends \PHPUnit\Framework\TestCase
             ->with($this->isInstanceOf(\NdB\PhpDocCheck\Findings\Warning::class));
         $arguments = $this->createMock(\GetOpt\GetOpt::class);
         $arguments->method('getOption')->will($this->onConsecutiveCalls(6, 4));
+        $analysableFile = $this->createMock('\NdB\PhpDocCheck\AnalysableFile');
+        $analysableFile->arguments = $arguments;
         $metric = $this->createMock(\NdB\PhpDocCheck\Metrics\Metric::class);
         $metric->method('getValue')->willReturn(4);
-        $nodeVisitor = new NodeVisitor($analysisResult, $arguments, $metric);
+        $nodeVisitor = new NodeVisitor($analysisResult, $analysableFile, $metric);
         $node = $this->createMock(\PhpParser\Node\Stmt\Function_::class);
         $nodeVisitor->leaveNode($node);
     }
@@ -27,9 +29,11 @@ final class NodeVisitorTest extends \PHPUnit\Framework\TestCase
             ->with($this->isInstanceOf(\NdB\PhpDocCheck\Findings\Error::class));
         $arguments = $this->createMock(\GetOpt\GetOpt::class);
         $arguments->method('getOption')->will($this->onConsecutiveCalls(6, 4));
+        $analysableFile = $this->createMock('\NdB\PhpDocCheck\AnalysableFile');
+        $analysableFile->arguments = $arguments;
         $metric = $this->createMock(\NdB\PhpDocCheck\Metrics\Metric::class);
         $metric->method('getValue')->willReturn(9);
-        $nodeVisitor = new NodeVisitor($analysisResult, $arguments, $metric);
+        $nodeVisitor = new NodeVisitor($analysisResult, $analysableFile, $metric);
         $node = $this->createMock(\PhpParser\Node\Stmt\Function_::class);
         $nodeVisitor->leaveNode($node);
     }

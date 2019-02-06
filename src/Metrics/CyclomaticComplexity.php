@@ -20,16 +20,26 @@ final class CyclomaticComplexity implements Metric
         'Expr_BinaryOp_Coalesce',
         'Expr_Ternary',
     );
-    
+
+    public $value;
+
+    public function getName():string
+    {
+        return 'metrics.complexity.cyclomatic';
+    }
+
     public function getValue(\PhpParser\Node $node):int
     {
-        return $this->calculateNodeValue($node) + 1;
+        if (is_null($this->value)) {
+            $this->value = $this->calculateNodeValue($node) + 1;
+        }
+        return $this->value;
     }
 
     /**
      * Recursively calculates Cyclomatic Complexity
      */
-    public function calculateNodeValue(\PhpParser\Node $node) : int
+    protected function calculateNodeValue(\PhpParser\Node $node) : int
     {
         $ccn = 0;
         foreach (get_object_vars($node) as $member) {
@@ -53,5 +63,13 @@ final class CyclomaticComplexity implements Metric
                 break;
         }
         return $ccn;
+    }
+
+    public function jsonSerialize() : array
+    {
+        return array(
+            'name'=>$this->getName(),
+            'value'=>$this->value
+        );
     }
 }

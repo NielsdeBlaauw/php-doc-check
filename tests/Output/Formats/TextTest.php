@@ -23,8 +23,11 @@ final class TextTest extends \PHPUnit\Framework\TestCase
             ->with($this->stringContains('Basic warning'));
         $formatter = new Text(array($channel));
         $results = $this->createMock(\NdB\PhpDocCheck\AnalysisResult::class);
+        $metric = $this->createMock('\NdB\PhpDocCheck\Metrics\Metric');
+        $analysableFile = $this->createMock('\NdB\PhpDocCheck\AnalysableFile');
+        $node = $this->createMock('\PhpParser\Node');
         $results->findings = array(
-            new \NdB\PhpDocCheck\Findings\Warning("Basic warning", 1)
+            new \NdB\PhpDocCheck\Findings\Warning("Basic warning", $node, $analysableFile, $metric)
         );
         $results->sourceFile = $this->createMock(\NdB\PhpDocCheck\AnalysableFile::class);
         $results->sourceFile->file = $this->createMock(\SplFileInfo::class);
