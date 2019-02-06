@@ -36,6 +36,13 @@ class ApplicationArgumentsProvider
                     '[file, none, metric, severity, fileline] [default: file]'
                 )
                 ->setDefaultValue('file'),
+            \GetOpt\Option::create('s', 'sorting-method', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
+                ->setDescription(
+                    'Sorting for the results. Natural sorts by name for groups and line for findings. '.
+                    'Value uses the cumulative group score, and finding score as sorting value. '.
+                    '[natural, value] [default: natural]'
+                )
+                ->setDefaultValue('file'),
             \GetOpt\Option::create('i', 'ignore-violations-on-exit', \GetOpt\GetOpt::NO_ARGUMENT)
                 ->setDescription('Will exit with a zero code, even if any violations are found'),
             \GetOpt\Option::create('?', 'help', \GetOpt\GetOpt::NO_ARGUMENT)

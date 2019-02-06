@@ -16,7 +16,7 @@ final class NodeVisitorTest extends \PHPUnit\Framework\TestCase
         $analysableFile->arguments = $arguments;
         $metric = $this->createMock(\NdB\PhpDocCheck\Metrics\Metric::class);
         $metric->method('getValue')->willReturn(4);
-        $groupManager = new \NdB\PhpDocCheck\GroupManager('none');
+        $groupManager = new \NdB\PhpDocCheck\GroupManager('none', 'natural');
         $nodeVisitor = new NodeVisitor($analysisResult, $analysableFile, $metric, $groupManager);
         $node = $this->createMock(\PhpParser\Node\Stmt\Function_::class);
         $nodeVisitor->leaveNode($node);

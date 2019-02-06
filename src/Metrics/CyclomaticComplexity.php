@@ -21,7 +21,6 @@ final class CyclomaticComplexity implements Metric
         'Expr_Ternary',
     );
 
-    public $value;
 
     public function getName():string
     {
@@ -30,10 +29,7 @@ final class CyclomaticComplexity implements Metric
 
     public function getValue(\PhpParser\Node $node):int
     {
-        if (is_null($this->value)) {
-            $this->value = $this->calculateNodeValue($node) + 1;
-        }
-        return $this->value;
+        return $this->calculateNodeValue($node) + 1;
     }
 
     /**
@@ -69,7 +65,6 @@ final class CyclomaticComplexity implements Metric
     {
         return array(
             'name'=>$this->getName(),
-            'value'=>$this->value
         );
     }
 }

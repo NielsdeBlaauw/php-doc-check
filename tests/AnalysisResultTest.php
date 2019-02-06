@@ -28,7 +28,8 @@ final class AnalysisResultTest extends \PHPUnit\Framework\TestCase
             "Basic warning",
             $this->node,
             $this->analysableFile,
-            $this->metric
+            $this->metric,
+            0
         );
         $analysisResult->addProgress($finding);
         $this->assertEquals('W', $analysisResult->getProgressIndicator());
@@ -44,7 +45,8 @@ final class AnalysisResultTest extends \PHPUnit\Framework\TestCase
             "Basic error",
             $this->node,
             $this->analysableFile,
-            $this->metric
+            $this->metric,
+            1
         );
         $analysisResult->addProgress($finding);
         $this->assertEquals('E', $analysisResult->getProgressIndicator());
