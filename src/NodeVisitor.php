@@ -9,15 +9,17 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     public $analysisResult;
     protected $arguments;
+    protected $sourceFile;
     protected $metric;
 
     public function __construct(
         AnalysisResult &$analysisResult,
-        \GetOpt\GetOpt $arguments,
+        AnalysableFile $file,
         \NdB\PhpDocCheck\Metrics\Metric $metric
     ) {
         $this->analysisResult =& $analysisResult;
-        $this->arguments      = $arguments;
+        $this->sourceFile     = $file;
+        $this->arguments      = $file->arguments;
         $this->metric         = $metric;
     }
 
@@ -39,14 +41,18 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
                     $this->analysisResult->addFinding(
                         new \NdB\PhpDocCheck\Findings\Error(
                             sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
-                            $node->getStartLine()
+                            $node,
+                            $this->sourceFile,
+                            $this->metric
                         )
                     );
                 } elseif ($metricValue >= $this->arguments->getOption('complexity-warning-threshold')) {
                     $this->analysisResult->addFinding(
                         new \NdB\PhpDocCheck\Findings\Warning(
                             sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
-                            $node->getStartLine()
+                            $node,
+                            $this->sourceFile,
+                            $this->metric
                         )
                     );
                 }
