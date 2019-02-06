@@ -54,15 +54,16 @@ $parser = (new \PhpParser\ParserFactory)->create(
 
 $analysisResults = array();
 $fileFinder = new \NdB\PhpDocCheck\FileFinder();
+$groupManager = new \NdB\PhpDocCheck\GroupManager($arguments->getOption('grouping-method'));
 foreach ($fileFinder->getFiles($arguments) as $name => $object) {
-    $file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments);
+    $file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments, $groupManager);
     $result = $file->analyse();
     $outputFormatter->progress($result->getProgressIndicator());
     $analysisResults[] = $result;
 }
 $outputFormatter->progress("\n");
 
-$outputFormatter->result($analysisResults);
+$outputFormatter->result($groupManager->getGroups());
 
 if ($arguments['ignore-violations-on-exit']) {
     exit(0);

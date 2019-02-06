@@ -30,6 +30,12 @@ class ApplicationArgumentsProvider
             \GetOpt\Option::create('$', 'file-extension', \GetOpt\GetOpt::MULTIPLE_ARGUMENT)
                 ->setDescription('Valid file extensions to scan [default: php]')
                 ->setDefaultValue('php'),
+            \GetOpt\Option::create('g', 'grouping-method', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
+                ->setDescription(
+                    'Allows different grouping of the results list '.
+                    '[file, none, metric, severity, fileline] [default: file]'
+                )
+                ->setDefaultValue('file'),
             \GetOpt\Option::create('i', 'ignore-violations-on-exit', \GetOpt\GetOpt::NO_ARGUMENT)
                 ->setDescription('Will exit with a zero code, even if any violations are found'),
             \GetOpt\Option::create('?', 'help', \GetOpt\GetOpt::NO_ARGUMENT)

@@ -11,7 +11,7 @@ final class TextTest extends \PHPUnit\Framework\TestCase
             ->method('out')
             ->with('');
         $formatter = new Text(array($channel));
-        $results = $this->createMock(\NdB\PhpDocCheck\AnalysisResult::class);
+        $results = $this->createMock(\NdB\PhpDocCheck\ResultGroup::class);
         $formatter->result(array($results));
     }
 
@@ -22,13 +22,13 @@ final class TextTest extends \PHPUnit\Framework\TestCase
             ->method('out')
             ->with($this->stringContains('Basic warning'));
         $formatter = new Text(array($channel));
-        $results = $this->createMock(\NdB\PhpDocCheck\AnalysisResult::class);
+        $results = $this->createMock(\NdB\PhpDocCheck\ResultGroup::class);
         $metric = $this->createMock('\NdB\PhpDocCheck\Metrics\Metric');
         $analysableFile = $this->createMock('\NdB\PhpDocCheck\AnalysableFile');
         $node = $this->createMock('\PhpParser\Node');
-        $results->findings = array(
+        $results->method('getFindings')->willReturn(array(
             new \NdB\PhpDocCheck\Findings\Warning("Basic warning", $node, $analysableFile, $metric)
-        );
+        ));
         $results->sourceFile = $this->createMock(\NdB\PhpDocCheck\AnalysableFile::class);
         $results->sourceFile->file = $this->createMock(\SplFileInfo::class);
         $results->sourceFile->file->method('getRealPath')->willReturn('/tmp/test');

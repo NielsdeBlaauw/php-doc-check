@@ -2,7 +2,7 @@
 
 namespace NdB\PhpDocCheck\Findings;
 
-abstract class Finding implements \JsonSerializable
+abstract class Finding implements \JsonSerializable, Groupable
 {
     public $message;
     public $node;
@@ -21,6 +21,28 @@ abstract class Finding implements \JsonSerializable
         $this->metric     = $metric;
     }
     
+    public function getGroupKey(string $groupingMethod) : string
+    {
+        switch ($groupingMethod) {
+            case 'none':
+                $groupKey = 'none';
+                break;
+            case 'metric':
+                $groupKey = $this->metric->getName();
+                break;
+            case 'severity':
+                $groupKey = $this->getType();
+                break;
+            case 'fileline':
+                $groupKey = $this->sourceFile->file->getRealPath().":".$this->getLine();
+                break;
+            case 'file':
+            default:
+                $groupKey = $this->sourceFile->file->getRealPath();
+        }
+        return $groupKey;
+    }
+
     public function getLine():int
     {
         return $this->node->getStartLine();

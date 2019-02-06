@@ -8,7 +8,7 @@ final class NodeVisitorTest extends \PHPUnit\Framework\TestCase
     {
         $analysisResult = $this->createMock(AnalysisResult::class);
         $analysisResult->expects($this->once())
-            ->method('addFinding')
+            ->method('addProgress')
             ->with($this->isInstanceOf(\NdB\PhpDocCheck\Findings\Warning::class));
         $arguments = $this->createMock(\GetOpt\GetOpt::class);
         $arguments->method('getOption')->will($this->onConsecutiveCalls(6, 4));
@@ -16,7 +16,8 @@ final class NodeVisitorTest extends \PHPUnit\Framework\TestCase
         $analysableFile->arguments = $arguments;
         $metric = $this->createMock(\NdB\PhpDocCheck\Metrics\Metric::class);
         $metric->method('getValue')->willReturn(4);
-        $nodeVisitor = new NodeVisitor($analysisResult, $analysableFile, $metric);
+        $groupManager = new \NdB\PhpDocCheck\GroupManager('none');
+        $nodeVisitor = new NodeVisitor($analysisResult, $analysableFile, $metric, $groupManager);
         $node = $this->createMock(\PhpParser\Node\Stmt\Function_::class);
         $nodeVisitor->leaveNode($node);
     }
@@ -25,7 +26,7 @@ final class NodeVisitorTest extends \PHPUnit\Framework\TestCase
     {
         $analysisResult = $this->createMock(AnalysisResult::class);
         $analysisResult->expects($this->once())
-            ->method('addFinding')
+            ->method('addProgress')
             ->with($this->isInstanceOf(\NdB\PhpDocCheck\Findings\Error::class));
         $arguments = $this->createMock(\GetOpt\GetOpt::class);
         $arguments->method('getOption')->will($this->onConsecutiveCalls(6, 4));
@@ -33,7 +34,8 @@ final class NodeVisitorTest extends \PHPUnit\Framework\TestCase
         $analysableFile->arguments = $arguments;
         $metric = $this->createMock(\NdB\PhpDocCheck\Metrics\Metric::class);
         $metric->method('getValue')->willReturn(9);
-        $nodeVisitor = new NodeVisitor($analysisResult, $analysableFile, $metric);
+        $groupManager = $this->createMock(\NdB\PhpDocCheck\GroupManager::class);
+        $nodeVisitor = new NodeVisitor($analysisResult, $analysableFile, $metric, $groupManager);
         $node = $this->createMock(\PhpParser\Node\Stmt\Function_::class);
         $nodeVisitor->leaveNode($node);
     }

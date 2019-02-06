@@ -18,7 +18,7 @@ class AnalysisResult implements \JsonSerializable
         return $this->sourceFile;
     }
 
-    public function addFinding(Findings\Finding $finding)
+    public function addProgress(Findings\Finding $finding)
     {
         $this->findings[] = $finding;
         if (is_a($finding, 'NdB\PhpDocCheck\Findings\Error')) {

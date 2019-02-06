@@ -11,16 +11,19 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
     protected $arguments;
     protected $sourceFile;
     protected $metric;
+    protected $groupManager;
 
     public function __construct(
         AnalysisResult &$analysisResult,
         AnalysableFile $file,
-        \NdB\PhpDocCheck\Metrics\Metric $metric
+        \NdB\PhpDocCheck\Metrics\Metric $metric,
+        GroupManager $groupManager
     ) {
         $this->analysisResult =& $analysisResult;
         $this->sourceFile     = $file;
         $this->arguments      = $file->arguments;
         $this->metric         = $metric;
+        $this->groupManager   = $groupManager;
     }
 
     /**
@@ -38,23 +41,23 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
             }
             if (empty($node->getDocComment())) {
                 if ($metricValue >= $this->arguments->getOption('complexity-error-threshold')) {
-                    $this->analysisResult->addFinding(
-                        new \NdB\PhpDocCheck\Findings\Error(
-                            sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
-                            $node,
-                            $this->sourceFile,
-                            $this->metric
-                        )
+                    $finding = new \NdB\PhpDocCheck\Findings\Error(
+                        sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
+                        $node,
+                        $this->sourceFile,
+                        $this->metric
                     );
+                    $this->analysisResult->addProgress($finding);
+                    $this->groupManager->addFinding($finding);
                 } elseif ($metricValue >= $this->arguments->getOption('complexity-warning-threshold')) {
-                    $this->analysisResult->addFinding(
-                        new \NdB\PhpDocCheck\Findings\Warning(
-                            sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
-                            $node,
-                            $this->sourceFile,
-                            $this->metric
-                        )
+                    $finding = new \NdB\PhpDocCheck\Findings\Warning(
+                        sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
+                        $node,
+                        $this->sourceFile,
+                        $this->metric
                     );
+                    $this->analysisResult->addProgress($finding);
+                    $this->groupManager->addFinding($finding);
                 }
             }
         }
