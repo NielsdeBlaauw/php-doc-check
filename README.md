@@ -61,6 +61,12 @@ Options:
   -g, --grouping-method <arg>               Allows different grouping of the
                                             results list [file, none, metric,
                                             severity, fileline] [default: file]
+  -s, --sorting-method <arg>                Sorting for the results. Natural
+                                            sorts by name for groups and line
+                                            for findings. Value uses the
+                                            cumulative group score, and finding
+                                            score as sorting value. [natural,
+                                            value] [default: natural]
   -i, --ignore-violations-on-exit           Will exit with a zero code, even if
                                             any violations are found
   -?, --help                                Show this help and quit
