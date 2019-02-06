@@ -45,7 +45,8 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
                         sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
                         $node,
                         $this->sourceFile,
-                        $this->metric
+                        $this->metric,
+                        $metricValue
                     );
                     $this->analysisResult->addProgress($finding);
                     $this->groupManager->addFinding($finding);
@@ -54,7 +55,8 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
                         sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
                         $node,
                         $this->sourceFile,
-                        $this->metric
+                        $this->metric,
+                        $metricValue
                     );
                     $this->analysisResult->addProgress($finding);
                     $this->groupManager->addFinding($finding);

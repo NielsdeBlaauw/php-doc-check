@@ -54,7 +54,7 @@ $parser = (new \PhpParser\ParserFactory)->create(
 
 $analysisResults = array();
 $fileFinder = new \NdB\PhpDocCheck\FileFinder();
-$groupManager = new \NdB\PhpDocCheck\GroupManager($arguments->getOption('grouping-method'));
+$groupManager = new \NdB\PhpDocCheck\GroupManager($arguments->getOption('grouping-method'), $arguments->getOption('sorting-method'));
 foreach ($fileFinder->getFiles($arguments) as $name => $object) {
     $file = new \NdB\PhpDocCheck\AnalysableFile(new SplFileInfo($name), $parser, $arguments, $groupManager);
     $result = $file->analyse();

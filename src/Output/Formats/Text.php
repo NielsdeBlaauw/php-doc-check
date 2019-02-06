@@ -18,7 +18,7 @@ final class Text extends Format
     {
         $output = '';
         $output .= "\n";
-        $output .= sprintf("Group: %s\n", $resultGroup->getName());
+        $output .= sprintf("Group: %s (score: %d)\n", $resultGroup->getName(), $resultGroup->getValue());
         $header = array(
             'Severity',
             'Message',

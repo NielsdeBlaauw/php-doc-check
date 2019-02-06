@@ -24,7 +24,6 @@ final class CognitiveComplexity implements Metric
         'Expr_BinaryOp_Coalesce',
         'Expr_Ternary',
     );
-    public $value;
 
     public function getName():string
     {
@@ -33,10 +32,7 @@ final class CognitiveComplexity implements Metric
 
     public function getValue(\PhpParser\Node $node):int
     {
-        if (is_null($this->value)) {
-            $this->value = $this->calculateNodeValue($node, 0);
-        }
-        return $this->value;
+        return $this->calculateNodeValue($node, 0);
     }
 
     /**
@@ -74,8 +70,7 @@ final class CognitiveComplexity implements Metric
     public function jsonSerialize() : array
     {
         return array(
-            'name'=>$this->getName(),
-            'value'=>$this->value
+            'name'=>$this->getName()
         );
     }
 }

@@ -34,7 +34,8 @@ class AnalysableFile implements \JsonSerializable
                 sprintf('Failed parsing: %s', $e->getRawMessage()),
                 new InvalidFileNode,
                 $this,
-                new \NdB\PhpDocCheck\Metrics\InvalidFile()
+                new \NdB\PhpDocCheck\Metrics\InvalidFile(),
+                0
             );
             $analysisResult->addProgress($finding);
             $this->groupManager->addFinding($finding);
