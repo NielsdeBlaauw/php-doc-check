@@ -5,25 +5,26 @@ final class Text extends Format
 {
     protected function get(array $results) : string
     {
-        $results = array_filter($results, array($this, 'removeEmpty'));
         $output = '';
-        foreach ($results as $analysisResult) {
-            $output .= $this->getFileOutput($analysisResult);
+        foreach ($results as $resultGroup) {
+            if (!empty($resultGroup->getFindings())) {
+                $output .= $this->getFileOutput($resultGroup);
+            }
         }
         return $output;
     }
 
-    protected function getFileOutput(\NdB\PhpDocCheck\AnalysisResult $analysisResult)
+    protected function getFileOutput(\NdB\PhpDocCheck\ResultGroup $resultGroup)
     {
         $output = '';
         $output .= "\n";
-        $output .= sprintf("File: %s\n", $analysisResult->sourceFile->file->getRealPath());
+        $output .= sprintf("Group: %s\n", $resultGroup->getName());
         $header = array(
             'Severity',
             'Message',
             'Line'
         );
-        $rows = array_map(array($this, 'formatRow'), $analysisResult->findings);
+        $rows = array_map(array($this, 'formatRow'), $resultGroup->getFindings());
         $lines = (new \cli\Table($header, $rows))->getDisplayLines();
         foreach ($lines as $line) {
             $output .= $line. "\n";

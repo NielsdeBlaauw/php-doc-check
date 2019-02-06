@@ -58,6 +58,9 @@ Options:
                                             [default: 6]
   -$, --file-extension <arg>                Valid file extensions to scan
                                             [default: php]
+  -g, --grouping-method <arg>               Allows different grouping of the
+                                            results list [file, none, metric,
+                                            severity, fileline] [default: file]
   -i, --ignore-violations-on-exit           Will exit with a zero code, even if
                                             any violations are found
   -?, --help                                Show this help and quit

@@ -30,7 +30,7 @@ final class AnalysisResultTest extends \PHPUnit\Framework\TestCase
             $this->analysableFile,
             $this->metric
         );
-        $analysisResult->addFinding($finding);
+        $analysisResult->addProgress($finding);
         $this->assertEquals('W', $analysisResult->getProgressIndicator());
         return $analysisResult;
     }
@@ -46,7 +46,7 @@ final class AnalysisResultTest extends \PHPUnit\Framework\TestCase
             $this->analysableFile,
             $this->metric
         );
-        $analysisResult->addFinding($finding);
+        $analysisResult->addProgress($finding);
         $this->assertEquals('E', $analysisResult->getProgressIndicator());
         return $analysisResult;
     }

@@ -5,17 +5,23 @@ class AnalysableFile implements \JsonSerializable
 {
     public $file;
     public $arguments;
+    public $groupManager;
     protected $parser;
     protected $metrics = array(
         'cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
         'cyclomatic' => '\NdB\PhpDocCheck\Metrics\CyclomaticComplexity'
     );
     
-    public function __construct(\SplFileInfo $file, \PhpParser\Parser $parser, \GetOpt\GetOpt $arguments)
-    {
+    public function __construct(
+        \SplFileInfo $file,
+        \PhpParser\Parser $parser,
+        \GetOpt\GetOpt $arguments,
+        GroupManager $groupManager
+    ) {
         $this->file = $file;
         $this->parser = $parser;
         $this->arguments = $arguments;
+        $this->groupManager = $groupManager;
     }
 
     public function analyse() : AnalysisResult
@@ -24,14 +30,14 @@ class AnalysableFile implements \JsonSerializable
         try {
             $statements = $this->parser->parse(file_get_contents($this->file->getRealPath()));
         } catch (\PhpParser\Error $e) {
-            $analysisResult->addFinding(
-                new \NdB\PhpDocCheck\Findings\Error(
-                    sprintf('Failed parsing: %s', $e->getRawMessage()),
-                    new InvalidFileNode,
-                    $this,
-                    new \NdB\PhpDocCheck\Metrics\InvalidFile()
-                )
+            $finding = new \NdB\PhpDocCheck\Findings\Error(
+                sprintf('Failed parsing: %s', $e->getRawMessage()),
+                new InvalidFileNode,
+                $this,
+                new \NdB\PhpDocCheck\Metrics\InvalidFile()
             );
+            $analysisResult->addProgress($finding);
+            $this->groupManager->addFinding($finding);
             return $analysisResult;
         }
         $traverser  = new \PhpParser\NodeTraverser();
@@ -40,7 +46,7 @@ class AnalysableFile implements \JsonSerializable
             $metricSlug = $this->arguments->getOption('metric');
         }
         $metric = new $this->metrics[$metricSlug];
-        $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($analysisResult, $this, $metric));
+        $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($analysisResult, $this, $metric, $this->groupManager));
         $traverser->traverse($statements);
         return $analysisResult;
     }

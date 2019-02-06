@@ -14,14 +14,9 @@ abstract class Format
     }
 
     /**
-     * @param \NdB\PhpDocCheck\AnalysisResult[] $results
+     * @param \NdB\PhpDocCheck\ResultGroup[] $results
      */
     abstract protected function get(array $results) : string;
-
-    protected function removeEmpty(\NdB\PhpDocCheck\AnalysisResult $analysisResult) : bool
-    {
-        return !empty($analysisResult->findings);
-    }
 
     /**
      * Determines if this scan has 'failed' and should be fixed. Or if it was
@@ -40,7 +35,7 @@ abstract class Format
     }
 
     /**
-     * @param \NdB\PhpDocCheck\AnalysisResult[] $results
+     * @param \NdB\PhpDocCheck\ResultGroup[] $results
      */
     abstract public function result(array $results);
     abstract public function out(string $output);

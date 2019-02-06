@@ -9,9 +9,9 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
         $channel = $this->createMock(\NdB\PhpDocCheck\Output\Channels\Channel::class);
         $channel->expects($this->once())
             ->method('out')
-            ->with('[]');
+            ->with('[[]]');
         $formatter = new Json(array($channel));
-        $results = $this->createMock(\NdB\PhpDocCheck\AnalysisResult::class);
+        $results = $this->createMock(\NdB\PhpDocCheck\ResultGroup::class);
         $formatter->result(array($results));
     }
 }
