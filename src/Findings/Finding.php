@@ -78,7 +78,7 @@ abstract class Finding implements \JsonSerializable, Groupable, \NdB\PhpDocCheck
             'metric'=> $this->metric,
             'sourceFile'=> $this->sourceFile,
             'node'=> array(
-                'name'         => isset($this->node->name)?$this->node->name:false,
+                'name'         => $this->node->getAttribute('FQSEN'),
                 'getStartLine' => $this->getLine()
             )
         );

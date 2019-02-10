@@ -46,6 +46,7 @@ class MetricChecker extends \PhpParser\NodeVisitorAbstract
                     $name = $node->namespacedName . '()';
                 }
             }
+            $node->setAttribute('FQSEN', $name);
             if (empty($node->getDocComment())) {
                 if ($metricValue >= $this->arguments->getOption('complexity-error-threshold')) {
                     $finding = new \NdB\PhpDocCheck\Findings\Error(
