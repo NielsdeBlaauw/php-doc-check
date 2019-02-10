@@ -1,6 +1,9 @@
 <?php
 namespace NdB\PhpDocCheck;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class AnalysableFile implements \JsonSerializable
 {
     public $file;
@@ -47,7 +50,13 @@ class AnalysableFile implements \JsonSerializable
             $metricSlug = $this->arguments->getOption('metric');
         }
         $metric = new $this->metrics[$metricSlug];
-        $traverser->addVisitor(new \NdB\PhpDocCheck\NodeVisitor($analysisResult, $this, $metric, $this->groupManager));
+        $traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver);
+        $traverser->addVisitor(
+            new \NdB\PhpDocCheck\NodeVisitors\ParentConnector()
+        );
+        $traverser->addVisitor(
+            new \NdB\PhpDocCheck\NodeVisitors\MetricChecker($analysisResult, $this, $metric, $this->groupManager)
+        );
         $traverser->traverse($statements);
         return $analysisResult;
     }

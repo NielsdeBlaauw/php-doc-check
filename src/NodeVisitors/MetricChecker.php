@@ -1,11 +1,11 @@
 <?php
 
-namespace NdB\PhpDocCheck;
+namespace NdB\PhpDocCheck\NodeVisitors;
 
 use \PhpParser\Node;
 use \PhpParser\Node\Stmt;
 
-class NodeVisitor extends \PhpParser\NodeVisitorAbstract
+class MetricChecker extends \PhpParser\NodeVisitorAbstract
 {
     public $analysisResult;
     protected $arguments;
@@ -14,10 +14,10 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
     protected $groupManager;
 
     public function __construct(
-        AnalysisResult &$analysisResult,
-        AnalysableFile $file,
+        \NdB\PhpDocCheck\AnalysisResult &$analysisResult,
+        \NdB\PhpDocCheck\AnalysableFile $file,
         \NdB\PhpDocCheck\Metrics\Metric $metric,
-        GroupManager $groupManager
+        \NdB\PhpDocCheck\GroupManager $groupManager
     ) {
         $this->analysisResult =& $analysisResult;
         $this->sourceFile     = $file;
@@ -37,7 +37,14 @@ class NodeVisitor extends \PhpParser\NodeVisitorAbstract
             
             $name = 'Anonymous function';
             if (\property_exists($node, 'name')) {
-                $name = $node->name;
+                $parent = $node->getAttribute('parent');
+                if (!empty($parent) && \property_exists($parent, 'namespacedName')) {
+                    $name = $parent->namespacedName . '::';
+                    $name .= $node->name . '()';
+                }
+                if (\property_exists($node, 'namespacedName')) {
+                    $name = $node->namespacedName . '()';
+                }
             }
             if (empty($node->getDocComment())) {
                 if ($metricValue >= $this->arguments->getOption('complexity-error-threshold')) {
