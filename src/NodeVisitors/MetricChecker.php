@@ -47,28 +47,25 @@ class MetricChecker extends \PhpParser\NodeVisitorAbstract
                 }
             }
             $node->setAttribute('FQSEN', $name);
-            if (empty($node->getDocComment())) {
-                if ($metricValue >= $this->arguments->getOption('complexity-error-threshold')) {
-                    $finding = new \NdB\PhpDocCheck\Findings\Error(
-                        sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
-                        $node,
-                        $this->sourceFile,
-                        $this->metric,
-                        $metricValue
-                    );
-                    $this->analysisResult->addProgress($finding);
-                    $this->groupManager->addFinding($finding);
-                } elseif ($metricValue >= $this->arguments->getOption('complexity-warning-threshold')) {
-                    $finding = new \NdB\PhpDocCheck\Findings\Warning(
-                        sprintf("%s has no documentation and a complexity of %d", $name, $metricValue),
-                        $node,
-                        $this->sourceFile,
-                        $this->metric,
-                        $metricValue
-                    );
-                    $this->analysisResult->addProgress($finding);
-                    $this->groupManager->addFinding($finding);
-                }
+            
+            if ($metricValue >= $this->arguments->getOption('complexity-error-threshold')) {
+                $finding = new \NdB\PhpDocCheck\Findings\Error(
+                    $node,
+                    $this->sourceFile,
+                    $this->metric,
+                    $metricValue
+                );
+                $this->analysisResult->addProgress($finding);
+                $this->groupManager->addFinding($finding);
+            } elseif ($metricValue >= $this->arguments->getOption('complexity-warning-threshold')) {
+                $finding = new \NdB\PhpDocCheck\Findings\Warning(
+                    $node,
+                    $this->sourceFile,
+                    $this->metric,
+                    $metricValue
+                );
+                $this->analysisResult->addProgress($finding);
+                $this->groupManager->addFinding($finding);
             }
         }
     }

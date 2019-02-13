@@ -12,6 +12,7 @@ class AnalysableFile implements \JsonSerializable
     protected $parser;
     protected $metrics = array(
         'cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
+        'metrics.deprecated.category'  => '\NdB\PhpDocCheck\Metrics\CategoryDeprecated',
         'cyclomatic' => '\NdB\PhpDocCheck\Metrics\CyclomaticComplexity'
     );
     
@@ -34,7 +35,6 @@ class AnalysableFile implements \JsonSerializable
             $statements = $this->parser->parse(file_get_contents($this->file->getRealPath()));
         } catch (\PhpParser\Error $e) {
             $finding = new \NdB\PhpDocCheck\Findings\Error(
-                sprintf('Failed parsing: %s', $e->getRawMessage()),
                 new InvalidFileNode,
                 $this,
                 new \NdB\PhpDocCheck\Metrics\InvalidFile(),
@@ -53,6 +53,9 @@ class AnalysableFile implements \JsonSerializable
         $traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver);
         $traverser->addVisitor(
             new \NdB\PhpDocCheck\NodeVisitors\ParentConnector()
+        );
+        $traverser->addVisitor(
+            new \NdB\PhpDocCheck\NodeVisitors\DocParser()
         );
         $traverser->addVisitor(
             new \NdB\PhpDocCheck\NodeVisitors\MetricChecker($analysisResult, $this, $metric, $this->groupManager)

@@ -20,14 +20,14 @@ final class TextTest extends \PHPUnit\Framework\TestCase
         $channel = $this->createMock(\NdB\PhpDocCheck\Output\Channels\Channel::class);
         $channel->expects($this->once())
             ->method('out')
-            ->with($this->stringContains('Basic warning'));
+            ->with($this->stringContains('Severity'));
         $formatter = new Text(array($channel));
         $results = $this->createMock(\NdB\PhpDocCheck\ResultGroup::class);
         $metric = $this->createMock('\NdB\PhpDocCheck\Metrics\Metric');
         $analysableFile = $this->createMock('\NdB\PhpDocCheck\AnalysableFile');
         $node = $this->createMock('\PhpParser\Node');
         $results->method('getFindings')->willReturn(array(
-            new \NdB\PhpDocCheck\Findings\Warning("Basic warning", $node, $analysableFile, $metric, 0)
+            new \NdB\PhpDocCheck\Findings\Warning($node, $analysableFile, $metric, 0)
         ));
         $results->sourceFile = $this->createMock(\NdB\PhpDocCheck\AnalysableFile::class);
         $results->sourceFile->file = $this->createMock(\SplFileInfo::class);

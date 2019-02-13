@@ -4,20 +4,17 @@ namespace NdB\PhpDocCheck\Findings;
 
 abstract class Finding implements \JsonSerializable, Groupable, \NdB\PhpDocCheck\Sortable
 {
-    public $message;
     public $node;
     public $sourceFile;
     public $metric;
     public $value;
 
     public function __construct(
-        string $message,
         \PhpParser\Node $node,
         \NdB\PhpDocCheck\AnalysableFile $sourceFile,
         \NdB\PhpDocCheck\Metrics\Metric $metric,
         int $value
     ) {
-        $this->message    = $message;
         $this->node       = $node;
         $this->sourceFile = $sourceFile;
         $this->metric     = $metric;
@@ -56,7 +53,7 @@ abstract class Finding implements \JsonSerializable, Groupable, \NdB\PhpDocCheck
 
     public function getMessage():string
     {
-        return $this->message;
+        return sprintf($this->metric->getMessage(), $this->node->getAttribute('FQSEN'), $this->value);
     }
 
     abstract public function getType():string;
