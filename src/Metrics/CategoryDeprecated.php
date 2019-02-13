@@ -8,7 +8,9 @@ final class CategoryDeprecated implements Metric
 
     public function getMessage():string
     {
-        return '%1$s has a @category tag, which is deprecated. It is recommended to use the @package tag\'s ability to provide multiple levels.';
+        return '%1$s has a @category tag, which is deprecated. '.
+        'It is recommended to use the @package tag\'s ability '.
+        'to provide multiple levels.';
     }
 
     public function getName():string
