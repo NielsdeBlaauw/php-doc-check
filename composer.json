@@ -13,7 +13,8 @@
     "require": {
         "nikic/php-parser": "^4.2",
         "wp-cli/php-cli-tools": "^0.11.11",
-        "ulrichsg/getopt-php": "^3.2"
+        "ulrichsg/getopt-php": "^3.2",
+        "phpdocumentor/reflection-docblock": "^4.3"
     },
     "bin": [
         "bin/php-doc-check"

@@ -6,6 +6,11 @@ final class InvalidFile implements Metric
 {
     public $value = 0;
 
+    public function getMessage():string
+    {
+        return 'Failed parsing file';
+    }
+
     public function getName():string
     {
         return 'metrics.files.invalid';

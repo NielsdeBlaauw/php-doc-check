@@ -21,6 +21,10 @@ final class CyclomaticComplexity implements Metric
         'Expr_Ternary',
     );
 
+    public function getMessage():string
+    {
+        return '%1$s has no documentation and a cyclomatic complexity of %2$d';
+    }
 
     public function getName():string
     {
@@ -29,6 +33,9 @@ final class CyclomaticComplexity implements Metric
 
     public function getValue(\PhpParser\Node $node):int
     {
+        if (!empty($node->getDocComment())) {
+            return 0;
+        }
         return $this->calculateNodeValue($node) + 1;
     }
 

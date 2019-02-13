@@ -25,7 +25,6 @@ final class AnalysisResultTest extends \PHPUnit\Framework\TestCase
     public function testChangesStateWhenAnWarningIsAdded($analysisResult)
     {
         $finding = new \NdB\PhpDocCheck\Findings\Warning(
-            "Basic warning",
             $this->node,
             $this->analysableFile,
             $this->metric,
@@ -42,7 +41,6 @@ final class AnalysisResultTest extends \PHPUnit\Framework\TestCase
     public function testChangesStateWhenAnErrorIsAdded($analysisResult)
     {
         $finding = new \NdB\PhpDocCheck\Findings\Error(
-            "Basic error",
             $this->node,
             $this->analysableFile,
             $this->metric,

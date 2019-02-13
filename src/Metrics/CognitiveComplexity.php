@@ -25,6 +25,11 @@ final class CognitiveComplexity implements Metric
         'Expr_Ternary',
     );
 
+    public function getMessage():string
+    {
+        return '%1$s has no documentation and a cognitive complexity of %2$d';
+    }
+
     public function getName():string
     {
         return 'metrics.complexity.cognitive';
@@ -32,6 +37,9 @@ final class CognitiveComplexity implements Metric
 
     public function getValue(\PhpParser\Node $node):int
     {
+        if (!empty($node->getDocComment())) {
+            return 0;
+        }
         return $this->calculateNodeValue($node, 0);
     }
 
