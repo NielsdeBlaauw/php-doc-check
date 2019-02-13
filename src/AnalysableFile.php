@@ -13,6 +13,7 @@ class AnalysableFile implements \JsonSerializable
     protected $metrics = array(
         'cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
         'metrics.deprecated.category'  => '\NdB\PhpDocCheck\Metrics\CategoryDeprecated',
+        'metrics.deprecated.subpackage'  => '\NdB\PhpDocCheck\Metrics\SubpackageDeprecated',
         'cyclomatic' => '\NdB\PhpDocCheck\Metrics\CyclomaticComplexity'
     );
     
