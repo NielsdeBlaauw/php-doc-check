@@ -18,7 +18,9 @@ class ApplicationArgumentsProvider
                 ->setDefaultValue(''),
             \GetOpt\Option::create('m', 'metric', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription(
-                    'Metric to use for determining complexity [cognitive, cyclomatic] [default: cognitive]'
+                    'Metric to use for determining complexity [cognitive, cyclomatic, '.
+                    'metrics.deprecated.category, metrics.deprecated.subpackage] '.
+                    '[default: cognitive]'
                 )
                 ->setDefaultValue('cognitive'),
             \GetOpt\Option::create('w', 'complexity-warning-threshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)

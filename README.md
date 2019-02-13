@@ -48,7 +48,9 @@ Options:
                                             [default: text]
   -o, --reportFile <arg>                    Send report output to a file
   -m, --metric <arg>                        Metric to use for determining
-                                            complexity [cognitive, cyclomatic]
+                                            complexity [cognitive, cyclomatic,
+                                            metrics.deprecated.category,
+                                            metrics.deprecated.subpackage]
                                             [default: cognitive]
   -w, --complexity-warning-threshold <arg>  Cyclomatic complexity score which
                                             is the lower bound for a warning
