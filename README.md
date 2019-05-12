@@ -50,7 +50,8 @@ Options:
   -m, --metric <arg>                        Metric to use for determining
                                             complexity [cognitive, cyclomatic,
                                             metrics.deprecated.category,
-                                            metrics.deprecated.subpackage]
+                                            metrics.deprecated.subpackage,
+                                            metrics.complexity.length]
                                             [default: cognitive]
   -w, --complexity-warning-threshold <arg>  Cyclomatic complexity score which
                                             is the lower bound for a warning

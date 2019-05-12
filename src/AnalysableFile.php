@@ -14,6 +14,7 @@ class AnalysableFile implements \JsonSerializable
         'cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
         'metrics.deprecated.category'  => '\NdB\PhpDocCheck\Metrics\CategoryDeprecated',
         'metrics.deprecated.subpackage'  => '\NdB\PhpDocCheck\Metrics\SubpackageDeprecated',
+        'metrics.complexity.length'  => '\NdB\PhpDocCheck\Metrics\FunctionLength',
         'cyclomatic' => '\NdB\PhpDocCheck\Metrics\CyclomaticComplexity'
     );
     

@@ -42,6 +42,7 @@ $lexer = new \PhpParser\Lexer\Emulative(
     array(
         'usedAttributes' => array(
             'startLine',
+            'endLine',
             'comments',
         ),
     )
