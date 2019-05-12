@@ -16,13 +16,13 @@ class ApplicationArgumentsProvider
             \GetOpt\Option::create('o', 'reportFile', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription('Send report output to a file')
                 ->setDefaultValue(''),
-            \GetOpt\Option::create('m', 'metric', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
+            \GetOpt\Option::create('m', 'metric', \GetOpt\GetOpt::MULTIPLE_ARGUMENT)
                 ->setDescription(
-                    'Metric to use for determining complexity [cognitive, cyclomatic, '.
-                    'metrics.deprecated.category, metrics.deprecated.subpackage, metrics.complexity.length] '.
-                    '[default: cognitive]'
+                    'Metric to use for determining complexity [metrics.complexity.cognitive, '.
+                    'metrics.complexity.cyclomatic, metrics.deprecated.category, metrics.deprecated.subpackage, '.
+                    'metrics.complexity.length] [default: metrics.complexity.cognitive]'
                 )
-                ->setDefaultValue('cognitive'),
+                ->setDefaultValue('metrics.complexity.cognitive'),
             \GetOpt\Option::create('w', 'complexity-warning-threshold', \GetOpt\GetOpt::REQUIRED_ARGUMENT)
                 ->setDescription('Cyclomatic complexity score which is the lower bound for a warning [default: 4]')
                 ->setDefaultValue(4)->setValidation('is_numeric'),
