@@ -11,11 +11,13 @@ class AnalysableFile implements \JsonSerializable
     public $groupManager;
     protected $parser;
     protected $metrics = array(
-        'cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
+        'cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity', // @deprecated
+        'cyclomatic' => '\NdB\PhpDocCheck\Metrics\CyclomaticComplexity', // @deprecated
         'metrics.deprecated.category'  => '\NdB\PhpDocCheck\Metrics\CategoryDeprecated',
         'metrics.deprecated.subpackage'  => '\NdB\PhpDocCheck\Metrics\SubpackageDeprecated',
         'metrics.complexity.length'  => '\NdB\PhpDocCheck\Metrics\FunctionLength',
-        'cyclomatic' => '\NdB\PhpDocCheck\Metrics\CyclomaticComplexity'
+        'metrics.complexity.cognitive'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
+        'metrics.complexity.cyclomatic'  => '\NdB\PhpDocCheck\Metrics\CognitiveComplexity',
     );
     
     public function __construct(
@@ -30,6 +32,9 @@ class AnalysableFile implements \JsonSerializable
         $this->groupManager = $groupManager;
     }
 
+    /**
+     * Analyses the file for all requested metrics.
+     */
     public function analyse() : AnalysisResult
     {
         $analysisResult = new AnalysisResult($this);
@@ -47,11 +52,7 @@ class AnalysableFile implements \JsonSerializable
             return $analysisResult;
         }
         $traverser  = new \PhpParser\NodeTraverser();
-        $metricSlug = 'cognitive';
-        if (array_key_exists($this->arguments->getOption('metric'), $this->metrics)) {
-            $metricSlug = $this->arguments->getOption('metric');
-        }
-        $metric = new $this->metrics[$metricSlug];
+        
         $traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver);
         $traverser->addVisitor(
             new \NdB\PhpDocCheck\NodeVisitors\ParentConnector()
@@ -59,9 +60,19 @@ class AnalysableFile implements \JsonSerializable
         $traverser->addVisitor(
             new \NdB\PhpDocCheck\NodeVisitors\DocParser()
         );
-        $traverser->addVisitor(
-            new \NdB\PhpDocCheck\NodeVisitors\MetricChecker($analysisResult, $this, $metric, $this->groupManager)
-        );
+        foreach ($this->arguments->getOption('metric') as $metricSlug) {
+            if (array_key_exists($metricSlug, $this->metrics)) {
+                $metric = new $this->metrics[$metricSlug];
+                $traverser->addVisitor(
+                    new \NdB\PhpDocCheck\NodeVisitors\MetricChecker(
+                        $analysisResult,
+                        $this,
+                        $metric,
+                        $this->groupManager
+                    )
+                );
+            }
+        }
         $traverser->traverse($statements);
         return $analysisResult;
     }
