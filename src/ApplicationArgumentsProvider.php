@@ -45,6 +45,8 @@ class ApplicationArgumentsProvider
                     '[natural, value] [default: natural]'
                 )
                 ->setDefaultValue('file'),
+            \GetOpt\Option::create('a', 'ignore-anonymous-functions', \GetOpt\GetOpt::NO_ARGUMENT)
+                ->setDescription('Will ignore anonymous functions on checks'),
             \GetOpt\Option::create('i', 'ignore-violations-on-exit', \GetOpt\GetOpt::NO_ARGUMENT)
                 ->setDescription('Will exit with a zero code, even if any violations are found'),
             \GetOpt\Option::create('?', 'help', \GetOpt\GetOpt::NO_ARGUMENT)
