@@ -46,6 +46,9 @@ class MetricChecker extends \PhpParser\NodeVisitorAbstract
                     $name = $node->namespacedName . '()';
                 }
             }
+            if ($name == 'Anonymous function' && $this->arguments['ignore-anonymous-functions']) {
+                return;
+            }
             $node->setAttribute('FQSEN', $name);
             
             if ($metricValue >= $this->arguments->getOption('complexity-error-threshold')) {

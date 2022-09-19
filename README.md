@@ -75,6 +75,7 @@ Options:
                                             value] [default: natural]
   -i, --ignore-violations-on-exit           Will exit with a zero code, even if
                                             any violations are found
+  -a, --ignore-anonymous-functions          Skip checks on anonymous functions
   -?, --help                                Show this help and quit
   -q, --quiet                               Don't show any output
 ```
