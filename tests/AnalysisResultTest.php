@@ -4,6 +4,11 @@ namespace NdB\PhpDocCheck;
 
 final class AnalysisResultTest extends \PHPUnit\Framework\TestCase
 {
+
+    protected $metric;
+    protected $analysableFile;
+    protected $node;
+
     protected function setUp(): void
     {
         $this->metric = $this->createMock('\NdB\PhpDocCheck\Metrics\Metric');

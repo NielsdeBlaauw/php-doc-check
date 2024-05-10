@@ -29,9 +29,9 @@ final class TextTest extends \PHPUnit\Framework\TestCase
         $results->method('getFindings')->willReturn(array(
             new \NdB\PhpDocCheck\Findings\Warning($node, $analysableFile, $metric, 0)
         ));
-        $results->sourceFile = $this->createMock(\NdB\PhpDocCheck\AnalysableFile::class);
-        $results->sourceFile->file = $this->createMock(\SplFileInfo::class);
-        $results->sourceFile->file->method('getRealPath')->willReturn('/tmp/test');
+        $sourceFile = $this->createMock(\NdB\PhpDocCheck\AnalysableFile::class);
+        $sourceFile->file = $this->createMock(\SplFileInfo::class);
+        $sourceFile->file->method('getRealPath')->willReturn('/tmp/test');
         $formatter->result(array($results));
     }
 
