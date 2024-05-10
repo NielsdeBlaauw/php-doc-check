@@ -1,0 +1,436 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\AnalysableFile\\:\\:__construct\\(\\) has parameter \\$arguments with no value type specified in iterable type GetOpt\\\\GetOpt\\.$#"
+			count: 1
+			path: src/AnalysableFile.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\AnalysableFile\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/AnalysableFile.php
+
+		-
+			message: "#^Parameter \\#3 \\$metric of class NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\MetricChecker constructor expects NdB\\\\PhpDocCheck\\\\Metrics\\\\Metric, object given\\.$#"
+			count: 1
+			path: src/AnalysableFile.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysableFile\\:\\:\\$arguments has no type specified\\.$#"
+			count: 1
+			path: src/AnalysableFile.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysableFile\\:\\:\\$file has no type specified\\.$#"
+			count: 1
+			path: src/AnalysableFile.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysableFile\\:\\:\\$groupManager has no type specified\\.$#"
+			count: 1
+			path: src/AnalysableFile.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysableFile\\:\\:\\$metrics has no type specified\\.$#"
+			count: 1
+			path: src/AnalysableFile.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysableFile\\:\\:\\$parser has no type specified\\.$#"
+			count: 1
+			path: src/AnalysableFile.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\AnalysisResult\\:\\:addProgress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/AnalysisResult.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\AnalysisResult\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/AnalysisResult.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysisResult\\:\\:\\$findings has no type specified\\.$#"
+			count: 1
+			path: src/AnalysisResult.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysisResult\\:\\:\\$hasErrors has no type specified\\.$#"
+			count: 1
+			path: src/AnalysisResult.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysisResult\\:\\:\\$hasWarnings has no type specified\\.$#"
+			count: 1
+			path: src/AnalysisResult.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\AnalysisResult\\:\\:\\$sourceFile has no type specified\\.$#"
+			count: 1
+			path: src/AnalysisResult.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\ApplicationArgumentsProvider\\:\\:getArguments\\(\\) has parameter \\$arguments with no type specified\\.$#"
+			count: 1
+			path: src/ApplicationArgumentsProvider.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\ApplicationArgumentsProvider\\:\\:getArguments\\(\\) return type has no value type specified in iterable type GetOpt\\\\GetOpt\\.$#"
+			count: 1
+			path: src/ApplicationArgumentsProvider.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\ApplicationArgumentsProvider\\:\\:\\$getOpt has no type specified\\.$#"
+			count: 1
+			path: src/ApplicationArgumentsProvider.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\FileFinder\\:\\:getFiles\\(\\) has parameter \\$arguments with no value type specified in iterable type GetOpt\\\\GetOpt\\.$#"
+			count: 1
+			path: src/FileFinder.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Findings\\\\Finding\\:\\:getSortValue\\(\\) has parameter \\$sortMethod with no type specified\\.$#"
+			count: 1
+			path: src/Findings/Finding.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Findings\\\\Finding\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Findings/Finding.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Findings\\\\Finding\\:\\:\\$metric has no type specified\\.$#"
+			count: 1
+			path: src/Findings/Finding.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Findings\\\\Finding\\:\\:\\$node has no type specified\\.$#"
+			count: 1
+			path: src/Findings/Finding.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Findings\\\\Finding\\:\\:\\$sourceFile has no type specified\\.$#"
+			count: 1
+			path: src/Findings/Finding.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Findings\\\\Finding\\:\\:\\$value has no type specified\\.$#"
+			count: 1
+			path: src/Findings/Finding.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\GroupContainer\\:\\:addFinding\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/GroupContainer.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\GroupContainer\\:\\:getGroups\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/GroupContainer.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\GroupManager\\:\\:addFinding\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/GroupManager.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\GroupManager\\:\\:getGroups\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/GroupManager.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\GroupManager\\:\\:\\$groupingMethod has no type specified\\.$#"
+			count: 1
+			path: src/GroupManager.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\GroupManager\\:\\:\\$groups has no type specified\\.$#"
+			count: 1
+			path: src/GroupManager.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\GroupManager\\:\\:\\$sortingMethod has no type specified\\.$#"
+			count: 1
+			path: src/GroupManager.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\InvalidFileNode\\:\\:getAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/InvalidFileNode.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\InvalidFileNode\\:\\:getSubNodeNames\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/InvalidFileNode.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\InvalidFileNode\\:\\:setAttribute\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/InvalidFileNode.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\InvalidFileNode\\:\\:setAttributes\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/InvalidFileNode.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\InvalidFileNode\\:\\:setAttributes\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/InvalidFileNode.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\InvalidFileNode\\:\\:setDocComment\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/InvalidFileNode.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Metrics\\\\CategoryDeprecated\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Metrics/CategoryDeprecated.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Metrics\\\\CategoryDeprecated\\:\\:\\$value has no type specified\\.$#"
+			count: 1
+			path: src/Metrics/CategoryDeprecated.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Metrics\\\\CognitiveComplexity\\:\\:calculateNodeValue\\(\\) has parameter \\$depth with no type specified\\.$#"
+			count: 1
+			path: src/Metrics/CognitiveComplexity.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Metrics\\\\CognitiveComplexity\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Metrics/CognitiveComplexity.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Metrics\\\\CognitiveComplexity\\:\\:\\$complexNodes has no type specified\\.$#"
+			count: 1
+			path: src/Metrics/CognitiveComplexity.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Metrics\\\\CyclomaticComplexity\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Metrics/CyclomaticComplexity.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Metrics\\\\CyclomaticComplexity\\:\\:\\$complexNodes has no type specified\\.$#"
+			count: 1
+			path: src/Metrics/CyclomaticComplexity.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Metrics\\\\FunctionLength\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Metrics/FunctionLength.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Metrics\\\\FunctionLength\\:\\:\\$value has no type specified\\.$#"
+			count: 1
+			path: src/Metrics/FunctionLength.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Metrics\\\\InvalidFile\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Metrics/InvalidFile.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Metrics\\\\InvalidFile\\:\\:\\$value has no type specified\\.$#"
+			count: 1
+			path: src/Metrics/InvalidFile.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Metrics\\\\SubpackageDeprecated\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Metrics/SubpackageDeprecated.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Metrics\\\\SubpackageDeprecated\\:\\:\\$value has no type specified\\.$#"
+			count: 1
+			path: src/Metrics/SubpackageDeprecated.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\DocParser\\:\\:leaveNode\\(\\) should return array\\<PhpParser\\\\Node\\>\\|int\\|PhpParser\\\\Node\\|null but return statement is missing\\.$#"
+			count: 1
+			path: src/NodeVisitors/DocParser.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\MetricChecker\\:\\:leaveNode\\(\\) should return array\\<PhpParser\\\\Node\\>\\|int\\|PhpParser\\\\Node\\|null but empty return statement found\\.$#"
+			count: 1
+			path: src/NodeVisitors/MetricChecker.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\MetricChecker\\:\\:leaveNode\\(\\) should return array\\<PhpParser\\\\Node\\>\\|int\\|PhpParser\\\\Node\\|null but return statement is missing\\.$#"
+			count: 1
+			path: src/NodeVisitors/MetricChecker.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\MetricChecker\\:\\:\\$analysisResult has no type specified\\.$#"
+			count: 1
+			path: src/NodeVisitors/MetricChecker.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\MetricChecker\\:\\:\\$arguments has no type specified\\.$#"
+			count: 1
+			path: src/NodeVisitors/MetricChecker.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\MetricChecker\\:\\:\\$groupManager has no type specified\\.$#"
+			count: 1
+			path: src/NodeVisitors/MetricChecker.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\MetricChecker\\:\\:\\$metric has no type specified\\.$#"
+			count: 1
+			path: src/NodeVisitors/MetricChecker.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\MetricChecker\\:\\:\\$sourceFile has no type specified\\.$#"
+			count: 1
+			path: src/NodeVisitors/MetricChecker.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\ParentConnector\\:\\:beforeTraverse\\(\\) should return array\\<PhpParser\\\\Node\\>\\|null but return statement is missing\\.$#"
+			count: 1
+			path: src/NodeVisitors/ParentConnector.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\ParentConnector\\:\\:enterNode\\(\\) should return int\\|PhpParser\\\\Node\\|null but return statement is missing\\.$#"
+			count: 1
+			path: src/NodeVisitors/ParentConnector.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\ParentConnector\\:\\:leaveNode\\(\\) should return array\\<PhpParser\\\\Node\\>\\|int\\|PhpParser\\\\Node\\|null but return statement is missing\\.$#"
+			count: 1
+			path: src/NodeVisitors/ParentConnector.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\NodeVisitors\\\\ParentConnector\\:\\:\\$stack has no type specified\\.$#"
+			count: 1
+			path: src/NodeVisitors/ParentConnector.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Channels\\\\Channel\\:\\:out\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Channels/Channel.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Output\\\\Channels\\\\Channel\\:\\:\\$stream has no type specified\\.$#"
+			count: 1
+			path: src/Output/Channels/Channel.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Channels\\\\Quiet\\:\\:out\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Channels/Quiet.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Channels\\\\Regular\\:\\:out\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Channels/Regular.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Format\\:\\:getExitCode\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Format.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Format\\:\\:out\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Format.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Format\\:\\:progress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Format.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Format\\:\\:result\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Format.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Format\\:\\:\\$channels has no type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Format.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Json\\:\\:out\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Json.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Json\\:\\:progress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Json.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Json\\:\\:result\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Json.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Text\\:\\:formatRow\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Output/Formats/Text.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Text\\:\\:getFileOutput\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Text.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Text\\:\\:out\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Text.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Text\\:\\:progress\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Text.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Output\\\\Formats\\\\Text\\:\\:result\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Output/Formats/Text.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\ResultGroup\\:\\:addFinding\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/ResultGroup.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\ResultGroup\\:\\:getFindings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ResultGroup.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\ResultGroup\\:\\:getSortValue\\(\\) has parameter \\$sortMethod with no type specified\\.$#"
+			count: 1
+			path: src/ResultGroup.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\ResultGroup\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ResultGroup.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\ResultGroup\\:\\:\\$findings has no type specified\\.$#"
+			count: 1
+			path: src/ResultGroup.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\ResultGroup\\:\\:\\$name has no type specified\\.$#"
+			count: 1
+			path: src/ResultGroup.php
+
+		-
+			message: "#^Property NdB\\\\PhpDocCheck\\\\ResultGroup\\:\\:\\$sortingMethod has no type specified\\.$#"
+			count: 1
+			path: src/ResultGroup.php
+
+		-
+			message: "#^Method NdB\\\\PhpDocCheck\\\\Sortable\\:\\:getSortValue\\(\\) has parameter \\$sortMethod with no type specified\\.$#"
+			count: 1
+			path: src/Sortable.php
