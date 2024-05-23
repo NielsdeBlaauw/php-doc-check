@@ -6,3 +6,4 @@ composer.lock
 /.travis/php-doc-check-phar-private.pem
 /.travis/secrets.tar
 .vscode/
+.phpunit.cache
